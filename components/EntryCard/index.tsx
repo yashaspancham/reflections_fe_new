@@ -8,7 +8,7 @@ type EntryCardProps = {
 const EntryCard = ({ entry }:EntryCardProps) => {
   return (
     <div
-      className="flex flex-row md:flex-col max-md:py-5 max-md:gap-2 md:gap-3 max-md:border-b-1 max-md:mt-2 max-md:border-black md:max-w-[250px] max-h-[450px] p-3 md:p-5 md:bg-gray-100 md:rounded-lg hover:cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out"
+      className="flex flex-row md:flex-col max-md:py-5 max-md:gap-2 md:gap-3 max-md:border-b-1 max-md:mt-2 max-md:border-black md:max-w-[250px] max-h-[450px] p-3 md:p-5 md:bg-gray-50 md:rounded-lg hover:cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out"
     >
       <Image
         src={"/defaultImageForEntry.png"}

@@ -1,8 +1,10 @@
+
+
 import React from "react";
 import { journalEntries } from "@/temp/tempData";
 import EntryCard from "@/components/EntryCard";
 import SideBarMenu from "@/components/SideBarMenu";
-
+import AddEntryButton from "@/components/addEntryButton";
 export default function Home() {
   return (
     <main className="w-full h-full z-0 lg:flex">
@@ -16,6 +18,7 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <AddEntryButton />
     </main>
   );
 }
