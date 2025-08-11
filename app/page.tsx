@@ -1,20 +1,21 @@
-import React from 'react';
-import {moreDists} from '@/temp/tempData';
+import React from "react";
+import { journalEntries } from "@/temp/tempData";
+import EntryCard from "@/components/EntryCard";
+import SideBarMenu from "@/components/SideBarMenu";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full xl:p-20 lg:p-16 md:p-12 sm:p-8 p-4">
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 place-items-center'>
-        {moreDists.map((item, index) => (
-          <div key={index}
-          className='max-w-[250px] p-5 bg-gray-200 rounded-lg'
-          >
-            <h2 className="text-lg font-bold">{item.title}</h2>
-            <p className="text-sm text-gray-500">Created at: {new Date(item.createdAt).toLocaleDateString()}</p>
-            <p className="text-gray-700 max-h-20  overflow-hidden">{item.content}</p>
-          </div>
-        ))}
+    <main className="w-full h-full z-0 lg:flex">
+      <SideBarMenu />
+      <div className="z-1 default flex flex-col h-full w-full items-center justify-center xl:p-20 lg:p-16 md:p-12 sm:p-8">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-8 place-items-center">
+          {journalEntries.map((item, index) => (
+            <div key={index}>
+              <EntryCard entry={item} />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
