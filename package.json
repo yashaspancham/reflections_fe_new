@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "test:watch": "jest --watch"
   },
   "dependencies": {
@@ -25,9 +25,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/testing-library__jest-dom": "^5.14.9",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5"
   }
