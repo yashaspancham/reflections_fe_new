@@ -11,6 +11,10 @@ const createJestConfig = nextJest({
   dir: "./",
 });
 const config: Config = {
+   preset: "ts-jest",
+    moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1"
+  },
   // coverageProvider: "v8",
   testEnvironment: "jsdom",
   // All imported modules in your tests should be mocked automatically
