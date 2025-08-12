@@ -20,7 +20,7 @@ const SignInPage = () => {
     }
 
     if (password === " " && email === "a@b.com") {
-      router.push("/");
+      router.push("/entries");
     }
   };
   return (
