@@ -3,7 +3,7 @@ import { toast,type ToastId } from "react-toastify";
 export const toasting = (msg: string, type: string) => {
   if (type === "info") {
     toast.info(msg, {
-      position: "top-right",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: false,
@@ -15,7 +15,7 @@ export const toasting = (msg: string, type: string) => {
   }
   if (type === "success") {
     toast.success(msg, {
-      position: "top-right",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: false,
@@ -27,7 +27,7 @@ export const toasting = (msg: string, type: string) => {
   }
   if (type === "warning") {
     toast.warning(msg, {
-      position: "top-right",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: false,
@@ -39,7 +39,7 @@ export const toasting = (msg: string, type: string) => {
   }
   if (type === "error") {
     toast.error(msg, {
-      position: "top-right",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: false,
@@ -51,7 +51,7 @@ export const toasting = (msg: string, type: string) => {
   }
   if (type === "default") {
     toast(msg, {
-      position: "top-right",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: false,
@@ -63,13 +63,12 @@ export const toasting = (msg: string, type: string) => {
   }
 };
 
-let currentToastId: ToastId | null = null;
 
-export const toastControl = (type: "loading" | "success" | "error", msg?: string, toastId?: ToastId): ToastId | undefined => {
+export const toastControl = (type:string, msg?: string, toastId?: ToastId) => {
   if (type === "loading") {
     const id = toast.info(msg || "Loading...", {
       position: "top-center",
-      autoClose: false, // keep it open
+      autoClose: false,
       closeOnClick: false,
       draggable: false,
       pauseOnHover: true,
@@ -78,14 +77,25 @@ export const toastControl = (type: "loading" | "success" | "error", msg?: string
     return id;
   }
 
-  if ((type === "success" || type === "error") && toastId) {
+  if (type === "success") {
     toast.update(toastId, {
-      render: msg || (type === "success" ? "Success!" : "Error!"),
-      type,
+      render: msg,
+      type:"success",
       autoClose: 3000,
       closeOnClick: true,
       draggable: true,
-      isLoading: false, // stop loading state
+      isLoading: false,
+    });
+  }
+
+    if (type === "error") {
+    toast.update(toastId, {
+      render: msg,
+      type:"error",
+      autoClose: 3000,
+      closeOnClick: true,
+      draggable: true,
+      isLoading: false,
     });
   }
 };

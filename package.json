@@ -11,6 +11,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@tiptap/extension-color": "^3.1.0",
     "@tiptap/extension-font-family": "^3.1.0",
     "@tiptap/extension-highlight": "^3.1.0",
     "@tiptap/extension-image": "^3.1.0",
