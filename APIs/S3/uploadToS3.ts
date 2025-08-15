@@ -1,13 +1,11 @@
 import axios from "axios";
-import { toastControl } from "@/utils/toast";
 
 interface uploadresponseT {
   url: string;
   Key: string;
 }
 
-export const uploadToS3 = async (file: File) => {
-//   const toastId = toastControl("loading", "Uploading image...");
+export const uploadToS3 = async (file: File,orderId:number) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
@@ -21,11 +19,9 @@ export const uploadToS3 = async (file: File) => {
         },
       }
     );
-    console.log("Uploaded file URL:", response.data.url);
-    // toastControl("success", "Image uploaded!",toastId);
-    return response.data.url;
+    // console.log("Uploaded file URL:", response.data.url);
+    return {"presignedURL":response.data.url, "orderID":orderId};
   } catch (error: any) {
-    // toastControl("error", "Upload failed!",toastId);
 
     console.error(
       "Error uploading file:",

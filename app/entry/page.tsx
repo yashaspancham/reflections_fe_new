@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -16,13 +17,12 @@ import ListItem from "@tiptap/extension-list-item";
 import OrderedList from "@tiptap/extension-ordered-list";
 import Paragraph from "@tiptap/extension-paragraph";
 import { TextStyle, Color } from "@tiptap/extension-text-style";
-import { uploadToS3 } from "@/APIs/S3/uploadToS3";
 import { iSImage } from "@/utils/images";
 import { toasting } from "@/utils/toast";
 import BulletLogo from "@/components/entryComponents/BulletLogo";
 import NumberedListLogo from "@/components/entryComponents/NumberedListLogo";
-import { saveEntry } from "@/APIs/entryAPI/saveEntry"
-
+import {  savingEntry } from "@/utils/savingContent/savingEntry";
+import { useSaveShortcut } from "@/customHooks/saveShortcut";
 
 export default function EntryPage() {
   const router = useRouter();
@@ -30,6 +30,7 @@ export default function EntryPage() {
   const [stagedImages, setStagedImages] = useState<
     { file: File; preview: string }[]
   >([]);
+  const [oldHTML, setOldHTML] = useState("");
   const [disableSaveButtom, setDisableSaveButtom] = useState<boolean>(false);
   const editor = useEditor({
     extensions: [
@@ -58,13 +59,19 @@ export default function EntryPage() {
         emptyEditorClass: "is-editor-empty",
       }),
     ],
-    content: "",
+    content: oldHTML,
     immediatelyRender: false,
     onUpdate: () => setEditorState({}),
     onSelectionUpdate: () => setEditorState({}),
   });
 
+  useSaveShortcut(() => {
+    if (!editor || disableSaveButtom) return;
+    setDisableSaveButtom(true);
+    handleSaveContentEntry();
+  });
   if (!editor) return null;
+
 
   const handleSaveContentEntry = () => {
     const entryContent = editor.getHTML();
@@ -78,8 +85,10 @@ export default function EntryPage() {
       setDisableSaveButtom(false)
       return;
     }
-    saveEntry(entryContent).then(()=>setDisableSaveButtom(false));
+    const newhtml=editor.getHTML();
+    // savingEntry(entryContent, stagedImages).then(() => setDisableSaveButtom(false));
   };
+
 
   return (
     <div className="sm:p-10 p-5">
@@ -235,8 +244,7 @@ export default function EntryPage() {
         <button
           disabled={disableSaveButtom}
           onClick={() => { setDisableSaveButtom(true); handleSaveContentEntry() }}
-          className={`p-2 ${disableSaveButtom?"bg-gray-300":"bg-blue-800 hover:bg-blue-700"} rounded-lg text-white`}>
-
+          className={`p-2 ${disableSaveButtom ? "bg-gray-300" : "bg-blue-800 hover:bg-blue-700"} rounded-lg text-white`}>
           Save
         </button>
       </div>
