@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { getColor } from "@/utils/getColorForSideMenu";
-import { useEditor } from "@tiptap/react";
 
 const SideBarMenu = () => {
   const pathname = usePathname();
@@ -42,7 +41,6 @@ const SideBarMenu = () => {
       router.push(newPath);
     }
   };
-  console.log("getColor(pathname): ",getColor(pathname));
   useEffect(()=>{setLoaded(true)},[])
   return (loaded &&
     <div className={`flex max-lg:flex-wrap max-lg:gap-2 lg:flex-col lg:justify-between fixed lg:sticky z-10 left-0 bottom-0 lg:top-0 ${getColor(pathname)[1]} min-h-20 min-w-full lg:min-w-[200px] lg:h-[100vh]`}>
@@ -67,7 +65,6 @@ const SideBarMenu = () => {
         ))}
       </div>
 
-      {/* Profile group */}
       <div className="flex max-lg:justify-center lg:w-full">
         <button
           onClick={() => handleRoutes(pathname, "/profile")}
