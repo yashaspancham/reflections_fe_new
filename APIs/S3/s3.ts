@@ -1,4 +1,4 @@
-import { toasting } from "@/utils/toast";
+import { toastControl, toasting } from "@/utils/toast";
 import axios from "axios";
 
 export const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE;
@@ -7,11 +7,11 @@ interface uploadresponseT {
     Key: string;
 }
 
-export const uploadToS3 = async (file: File, orderId: number) => {
+export const uploadToS3 = async (file: File) => {
+    const toastId=toastControl("loading","uploading image");
     try {
         const formData = new FormData();
         formData.append("file", file);
-
         const response = await axios.post<uploadresponseT>(
             "http://localhost:8000/api/upload/",
             formData,
@@ -21,14 +21,16 @@ export const uploadToS3 = async (file: File, orderId: number) => {
                 },
             }
         );
-        // console.log("Uploaded file URL:", response.data.url);
-        return { "presignedURL": response.data.url, "orderID": orderId };
+        toastControl("success","Uploading Successfully",toastId);
+        console.log("response.data.url: ",response.data.url);
+        return { "key":response.data.Key,"url": response.data.url};
     } catch (error: any) {
-
+        toastControl("error","Error Uploading Image",toastId);
         console.error(
             "Error uploading file:",
             error.response?.data?.error || error.message
         );
+        return;
     }
 };
 
@@ -67,7 +69,7 @@ export const downloadImage = async (image_url: string) => {
 
 export const delete_iamge = async (image_url: string) => {
     try {
-        const response: any = await axios.delete(`${apiBaseURL}delete_image?url=${encodeURIComponent(image_url)}`,
+        await axios.delete(`${apiBaseURL}delete_image?url=${encodeURIComponent(image_url)}`,
             { method: "DELETE" });
         toasting("Image deleted", "success");
         return true;
