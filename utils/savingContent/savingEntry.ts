@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toasting } from "../toast";
-import { uploadToS3 } from "@/APIs/S3/uploadToS3";
+import { uploadToS3 } from "@/APIs/S3/s3";
 import { toastControl } from "@/utils/toast";
 
 const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE

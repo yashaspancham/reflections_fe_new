@@ -50,7 +50,7 @@ const SideBarMenu = () => {
           <button
             onClick={() => handleRoutes(pathname, page.path)}
             key={index}
-            className={`flex items-center justify-between xl:px-5 gap-5 lg:w-full hover:cursor-pointer max-lg:mt-2 max-lg:p-3 lg:py-5 rounded-md text-md sm:text-lg lg:text-2xl text-white ${getColor(pathname)[0]} ${getColor(pathname)[2]} ${pathname === page.path ? getColor(pathname)[3] : ""
+            className={`flex items-center justify-between lg:px-5 gap-5 lg:w-full hover:cursor-pointer max-lg:mt-2 max-lg:p-3 lg:py-5 rounded-md text-md sm:text-lg lg:text-2xl text-white ${getColor(pathname)[0]} ${getColor(pathname)[2]} ${pathname === page.path ? getColor(pathname)[3] : ""
               }`}
           >
             <Image
@@ -81,7 +81,6 @@ const SideBarMenu = () => {
           <div>Profile</div>
         </button>
       </div>
-
     </div>
   );
 };
