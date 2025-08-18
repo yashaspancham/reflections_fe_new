@@ -69,6 +69,7 @@ const MediaPage = () => {
                   src={item.url}
                   alt="uploaded image"
                   className="max-h-46 w-full h-full object-contain z-0 rounded-lg"
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
                 <div className="rounded-lg h-full w-full absolute top-0 left-0 z-1 flex items-end justify-end transition hover:opacity-100 lg:opacity-0">
                   <div className="flex m-1 md:m-3 bg-gray-200 rounded-sm">
@@ -106,11 +107,10 @@ const MediaPage = () => {
                         handleDeleteImage(item.url);
                       }}
                       className={`hover:cursor-pointer p-1 
-                                        ${
-                                          deleteButtonDisabled
-                                            ? "opacity-50"
-                                            : ""
-                                        }
+                                        ${deleteButtonDisabled
+                          ? "opacity-50"
+                          : ""
+                        }
                                         `}
                     >
                       <Image
