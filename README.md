@@ -2,8 +2,7 @@ This will be the new frontend for Reflections
 
 # 📝 Next.js Diary Web App
 
-A modern and responsive personal diary application built with **Next.js** that allows users to create, view, edit, and manage their daily entries.  
-Designed for simplicity, accessibility, and a pleasant writing experience.
+A modern and responsive personal diary application built with **Next.js** that allows users to create, view, edit, and manage their daily entries. Designed for simplicity, accessibility, and a pleasant writing experience.
 
 ---
 
