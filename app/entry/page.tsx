@@ -90,7 +90,6 @@ export default function EntryPage() {
     }
     else {
       const diff = generateDiff(oldHTML, newHTML);
-      console.log("diff: ", diff);
       updateEntry(diff).then(res => { if (res) { setOldHTML(newHTML) }; setDisableSaveButtom(false) })
     }
   };

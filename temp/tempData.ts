@@ -1,4 +1,388 @@
-import {entryType} from "@/utils/types"
+import { entryType } from "@/utils/types"
+
+export const tasksList = [
+  {
+    "text": "Write blog about Cloud Resume Challenge fgwerjmgajeruio9rhgejarui9geruighuietjhghetjhghgherge5aer89guyaer89yeughaeruhguieh",
+    "createdOn": "2025-08-01T10:30:00Z",
+    "lastUpdatedOn": "2025-08-10T15:00:00Z",
+    "finishTaskBy": "2025-08-20T23:59:00Z",
+  },
+  {
+    "text": "Implement HTML diff in Django backend",
+    "createdOn": "2025-08-15T09:00:00Z",
+    "lastUpdatedOn": "2025-08-20T12:30:00Z",
+    "finishTaskBy": "2025-08-25T23:59:00Z",
+  },
+  {
+    "text": "Build S3 image selector UI",
+    "createdOn": "2025-08-12T11:45:00Z",
+    "lastUpdatedOn": "2025-08-18T16:10:00Z",
+    "finishTaskBy": "2025-08-22T23:59:00Z",
+  },
+  {
+    "text": "Refactor utils.py in Django",
+    "createdOn": "2025-08-05T08:15:00Z",
+    "lastUpdatedOn": "2025-08-14T14:20:00Z",
+    "finishTaskBy": "2025-08-21T23:59:00Z",
+  },
+  {
+    "text": "Write blog post about Cloud Resume Challenge",
+    "createdOn": "2025-08-01T09:15:00Z",
+    "lastUpdatedOn": "2025-08-02T10:45:00Z",
+    "finishTaskBy": "2025-08-05T18:00:00Z"
+  },
+  {
+    "text": "Review pull requests on journaling app repo",
+    "createdOn": "2025-08-03T11:20:00Z",
+    "lastUpdatedOn": "2025-08-03T13:00:00Z",
+    "finishTaskBy": "2025-08-06T20:00:00Z"
+  },
+  {
+    "text": "Implement authentication flow in Expo Router",
+    "createdOn": "2025-08-04T08:30:00Z",
+    "lastUpdatedOn": "2025-08-05T12:00:00Z",
+    "finishTaskBy": "2025-08-08T23:59:00Z"
+  },
+  {
+    "text": "Set up Express API endpoints for Tasks table",
+    "createdOn": "2025-08-05T10:10:00Z",
+    "lastUpdatedOn": "2025-08-06T15:30:00Z",
+    "finishTaskBy": "2025-08-09T17:00:00Z"
+  },
+  {
+    "text": "Fix image upload preview issue in editor",
+    "createdOn": "2025-08-06T14:45:00Z",
+    "lastUpdatedOn": "2025-08-06T16:20:00Z",
+    "finishTaskBy": "2025-08-07T20:00:00Z"
+  },
+  {
+    "text": "Create Terraform module for Lambda layers",
+    "createdOn": "2025-08-07T09:00:00Z",
+    "lastUpdatedOn": "2025-08-08T11:15:00Z",
+    "finishTaskBy": "2025-08-12T19:00:00Z"
+  },
+  {
+    "text": "Test AWS CSV pipeline with larger dataset",
+    "createdOn": "2025-08-08T13:40:00Z",
+    "lastUpdatedOn": "2025-08-09T15:00:00Z",
+    "finishTaskBy": "2025-08-11T22:00:00Z"
+  },
+  {
+    "text": "Debug diff-match-patch HTML output",
+    "createdOn": "2025-08-09T07:25:00Z",
+    "lastUpdatedOn": "2025-08-09T09:50:00Z",
+    "finishTaskBy": "2025-08-10T16:00:00Z"
+  },
+  {
+    "text": "Prepare slides for factor investing tool demo",
+    "createdOn": "2025-08-10T11:45:00Z",
+    "lastUpdatedOn": "2025-08-11T08:00:00Z",
+    "finishTaskBy": "2025-08-14T14:00:00Z"
+  },
+  {
+    "text": "Refactor Redux persist logic in auth slice",
+    "createdOn": "2025-08-11T09:10:00Z",
+    "lastUpdatedOn": "2025-08-11T11:35:00Z",
+    "finishTaskBy": "2025-08-13T19:00:00Z"
+  },
+  {
+    "text": "Set up cron job for web scraping project",
+    "createdOn": "2025-08-12T10:00:00Z",
+    "lastUpdatedOn": "2025-08-12T14:15:00Z",
+    "finishTaskBy": "2025-08-15T22:00:00Z"
+  },
+  {
+    "text": "Test error notifications via email",
+    "createdOn": "2025-08-12T15:00:00Z",
+    "lastUpdatedOn": "2025-08-13T08:45:00Z",
+    "finishTaskBy": "2025-08-14T20:00:00Z"
+  },
+  {
+    "text": "Design Next.js task details page",
+    "createdOn": "2025-08-13T09:30:00Z",
+    "lastUpdatedOn": "2025-08-13T12:50:00Z",
+    "finishTaskBy": "2025-08-16T21:00:00Z"
+  },
+  {
+    "text": "Write helper utilities for S3 uploads",
+    "createdOn": "2025-08-14T11:00:00Z",
+    "lastUpdatedOn": "2025-08-14T13:20:00Z",
+    "finishTaskBy": "2025-08-17T18:00:00Z"
+  },
+  {
+    "text": "Improve image gallery scroll performance",
+    "createdOn": "2025-08-15T14:00:00Z",
+    "lastUpdatedOn": "2025-08-15T17:40:00Z",
+    "finishTaskBy": "2025-08-18T22:00:00Z"
+  },
+  {
+    "text": "Add support for multiple file upload in editor",
+    "createdOn": "2025-08-16T09:45:00Z",
+    "lastUpdatedOn": "2025-08-16T11:55:00Z",
+    "finishTaskBy": "2025-08-19T19:00:00Z"
+  },
+  {
+    "text": "Update backend API for saving diffs",
+    "createdOn": "2025-08-17T08:20:00Z",
+    "lastUpdatedOn": "2025-08-17T12:00:00Z",
+    "finishTaskBy": "2025-08-20T20:00:00Z"
+  },
+  {
+    "text": "Test HTML patch application on server",
+    "createdOn": "2025-08-18T11:15:00Z",
+    "lastUpdatedOn": "2025-08-18T14:30:00Z",
+    "finishTaskBy": "2025-08-21T18:00:00Z"
+  },
+  {
+    "text": "Write diary entry samples for seeding DB",
+    "createdOn": "2025-08-19T10:30:00Z",
+    "lastUpdatedOn": "2025-08-19T11:45:00Z",
+    "finishTaskBy": "2025-08-22T20:00:00Z"
+  },
+  {
+    "text": "Set up MongoDB for visitor counter",
+    "createdOn": "2025-08-20T09:00:00Z",
+    "lastUpdatedOn": "2025-08-20T13:25:00Z",
+    "finishTaskBy": "2025-08-23T22:00:00Z"
+  },
+  {
+    "text": "Finalize API documentation for Express backend",
+    "createdOn": "2025-08-21T08:45:00Z",
+    "lastUpdatedOn": "2025-08-21T12:10:00Z",
+    "finishTaskBy": "2025-08-24T18:00:00Z"
+  },
+  {
+    "text": "Add search functionality to Task List page",
+    "createdOn": "2025-08-22T10:15:00Z",
+    "lastUpdatedOn": "2025-08-22T13:30:00Z",
+    "finishTaskBy": "2025-08-25T20:00:00Z"
+  },
+  {
+    "text": "Implement dark mode toggle in frontend",
+    "createdOn": "2025-08-23T09:30:00Z",
+    "lastUpdatedOn": "2025-08-23T14:00:00Z",
+    "finishTaskBy": "2025-08-27T22:00:00Z"
+  },
+  {
+    "text": "Run unit tests on SQLite models",
+    "createdOn": "2025-08-24T08:00:00Z",
+    "lastUpdatedOn": "2025-08-24T10:20:00Z",
+    "finishTaskBy": "2025-08-26T19:00:00Z"
+  },
+  {
+    "text": "Research deployment options for Django backend",
+    "createdOn": "2025-08-25T11:15:00Z",
+    "lastUpdatedOn": "2025-08-25T15:45:00Z",
+    "finishTaskBy": "2025-08-28T21:00:00Z"
+  },
+  {
+    "text": "Configure Nginx for serving static files",
+    "createdOn": "2025-08-26T10:40:00Z",
+    "lastUpdatedOn": "2025-08-26T12:50:00Z",
+    "finishTaskBy": "2025-08-29T18:00:00Z"
+  },
+  {
+    "text": "Integrate Redux Toolkit with React Query",
+    "createdOn": "2025-08-27T09:20:00Z",
+    "lastUpdatedOn": "2025-08-27T11:10:00Z",
+    "finishTaskBy": "2025-08-30T23:00:00Z"
+  },
+  {
+    "text": "Optimize database schema for faster queries",
+    "createdOn": "2025-08-28T07:50:00Z",
+    "lastUpdatedOn": "2025-08-28T13:40:00Z",
+    "finishTaskBy": "2025-09-01T20:00:00Z"
+  },
+  {
+    "text": "Create health check endpoint for backend",
+    "createdOn": "2025-08-29T08:30:00Z",
+    "lastUpdatedOn": "2025-08-29T09:55:00Z",
+    "finishTaskBy": "2025-09-02T22:00:00Z"
+  },
+  {
+    "text": "Deploy journaling app to Vercel",
+    "createdOn": "2025-08-30T09:00:00Z",
+    "lastUpdatedOn": "2025-08-30T12:00:00Z",
+    "finishTaskBy": "2025-09-03T20:00:00Z"
+  },
+  {
+    "text": "Update Terraform scripts for S3 bucket versioning",
+    "createdOn": "2025-08-31T10:20:00Z",
+    "lastUpdatedOn": "2025-08-31T14:30:00Z",
+    "finishTaskBy": "2025-09-04T21:00:00Z"
+  },
+  {
+    "text": "Review Django settings for security best practices",
+    "createdOn": "2025-09-01T11:00:00Z",
+    "lastUpdatedOn": "2025-09-01T13:25:00Z",
+    "finishTaskBy": "2025-09-05T20:00:00Z"
+  },
+  {
+    "text": "Write Jest tests for frontend components",
+    "createdOn": "2025-09-02T08:15:00Z",
+    "lastUpdatedOn": "2025-09-02T11:40:00Z",
+    "finishTaskBy": "2025-09-06T22:00:00Z"
+  },
+  {
+    "text": "Fix Redux state reset issue after logout",
+    "createdOn": "2025-09-03T07:45:00Z",
+    "lastUpdatedOn": "2025-09-03T09:50:00Z",
+    "finishTaskBy": "2025-09-07T19:00:00Z"
+  },
+  {
+    "text": "Set up GitHub Actions for CI/CD",
+    "createdOn": "2025-09-04T09:00:00Z",
+    "lastUpdatedOn": "2025-09-04T14:10:00Z",
+    "finishTaskBy": "2025-09-08T21:00:00Z"
+  },
+  {
+    "text": "Test JWT authentication with mobile client",
+    "createdOn": "2025-09-05T08:30:00Z",
+    "lastUpdatedOn": "2025-09-05T12:00:00Z",
+    "finishTaskBy": "2025-09-09T20:00:00Z"
+  },
+  {
+    "text": "Add analytics dashboard to factor investing tool",
+    "createdOn": "2025-09-06T10:10:00Z",
+    "lastUpdatedOn": "2025-09-06T13:20:00Z",
+    "finishTaskBy": "2025-09-10T23:00:00Z"
+  },
+  {
+    "text": "Refactor async storage handlers in Expo app",
+    "createdOn": "2025-09-07T11:15:00Z",
+    "lastUpdatedOn": "2025-09-07T15:45:00Z",
+    "finishTaskBy": "2025-09-11T20:00:00Z"
+  },
+  {
+    "text": "Improve error handling in backend API",
+    "createdOn": "2025-09-08T09:30:00Z",
+    "lastUpdatedOn": "2025-09-08T12:50:00Z",
+    "finishTaskBy": "2025-09-12T21:00:00Z"
+  },
+  {
+    "text": "Design mobile-first layout for task editor",
+    "createdOn": "2025-09-09T08:00:00Z",
+    "lastUpdatedOn": "2025-09-09T11:00:00Z",
+    "finishTaskBy": "2025-09-13T22:00:00Z"
+  },
+  {
+    "text": "Benchmark Lambda cold start times",
+    "createdOn": "2025-09-10T07:40:00Z",
+    "lastUpdatedOn": "2025-09-10T10:15:00Z",
+    "finishTaskBy": "2025-09-14T19:00:00Z"
+  },
+  {
+    "text": "Document database schema changes",
+    "createdOn": "2025-09-11T10:25:00Z",
+    "lastUpdatedOn": "2025-09-11T12:30:00Z",
+    "finishTaskBy": "2025-09-15T20:00:00Z"
+  },
+  {
+    "text": "Write blog entry about web scraping pipeline",
+    "createdOn": "2025-09-12T11:15:00Z",
+    "lastUpdatedOn": "2025-09-12T13:00:00Z",
+    "finishTaskBy": "2025-09-16T21:00:00Z"
+  },
+  {
+    "text": "Test Next.js API routes for diary app",
+    "createdOn": "2025-09-13T08:10:00Z",
+    "lastUpdatedOn": "2025-09-13T10:30:00Z",
+    "finishTaskBy": "2025-09-17T18:00:00Z"
+  },
+  {
+    "text": "Add pagination to task list view",
+    "createdOn": "2025-09-14T09:00:00Z",
+    "lastUpdatedOn": "2025-09-14T11:20:00Z",
+    "finishTaskBy": "2025-09-18T20:00:00Z"
+  },
+  {
+    "text": "Improve mobile UI with better spacing",
+    "createdOn": "2025-09-15T10:45:00Z",
+    "lastUpdatedOn": "2025-09-15T14:30:00Z",
+    "finishTaskBy": "2025-09-19T21:00:00Z"
+  },
+  {
+    "text": "Set up automated backups for SQLite DB",
+    "createdOn": "2025-09-16T09:20:00Z",
+    "lastUpdatedOn": "2025-09-16T12:40:00Z",
+    "finishTaskBy": "2025-09-20T20:00:00Z"
+  },
+  {
+    "text": "Run stress tests on Express API",
+    "createdOn": "2025-09-17T08:50:00Z",
+    "lastUpdatedOn": "2025-09-17T11:15:00Z",
+    "finishTaskBy": "2025-09-21T22:00:00Z"
+  },
+  {
+    "text": "Configure Docker Compose for local dev",
+    "createdOn": "2025-09-18T09:00:00Z",
+    "lastUpdatedOn": "2025-09-18T13:25:00Z",
+    "finishTaskBy": "2025-09-22T20:00:00Z"
+  },
+  {
+    "text": "Research caching strategies for API responses",
+    "createdOn": "2025-09-19T10:10:00Z",
+    "lastUpdatedOn": "2025-09-19T14:00:00Z",
+    "finishTaskBy": "2025-09-23T19:00:00Z"
+  },
+  {
+    "text": "Set up Redis for session management",
+    "createdOn": "2025-09-20T11:00:00Z",
+    "lastUpdatedOn": "2025-09-20T12:30:00Z",
+    "finishTaskBy": "2025-09-24T22:00:00Z"
+  },
+  {
+    "text": "Write migration scripts for DB changes",
+    "createdOn": "2025-09-21T08:15:00Z",
+    "lastUpdatedOn": "2025-09-21T09:50:00Z",
+    "finishTaskBy": "2025-09-25T21:00:00Z"
+  },
+  {
+    "text": "Fix async issues in Lambda function",
+    "createdOn": "2025-09-22T07:45:00Z",
+    "lastUpdatedOn": "2025-09-22T11:10:00Z",
+    "finishTaskBy": "2025-09-26T20:00:00Z"
+  },
+  {
+    "text": "Implement role-based access control",
+    "createdOn": "2025-09-23T09:00:00Z",
+    "lastUpdatedOn": "2025-09-23T12:15:00Z",
+    "finishTaskBy": "2025-09-27T19:00:00Z"
+  },
+  {
+    "text": "Improve logging with structured JSON output",
+    "createdOn": "2025-09-24T10:20:00Z",
+    "lastUpdatedOn": "2025-09-24T13:00:00Z",
+    "finishTaskBy": "2025-09-28T22:00:00Z"
+  },
+  {
+    "text": "Add unit tests for diff generation function",
+    "createdOn": "2025-09-25T08:30:00Z",
+    "lastUpdatedOn": "2025-09-25T11:50:00Z",
+    "finishTaskBy": "2025-09-29T21:00:00Z"
+  },
+  {
+    "text": "Test frontend-backend integration for HTML diffs",
+    "createdOn": "2025-09-26T07:40:00Z",
+    "lastUpdatedOn": "2025-09-26T12:00:00Z",
+    "finishTaskBy": "2025-09-30T20:00:00Z"
+  },
+  {
+    "text": "Document project setup instructions",
+    "createdOn": "2025-09-27T09:15:00Z",
+    "lastUpdatedOn": "2025-09-27T10:45:00Z",
+    "finishTaskBy": "2025-10-01T22:00:00Z"
+  },
+  {
+    "text": "Clean up unused dependencies in package.json",
+    "createdOn": "2025-09-28T10:00:00Z",
+    "lastUpdatedOn": "2025-09-28T13:20:00Z",
+    "finishTaskBy": "2025-10-02T20:00:00Z"
+  }
+
+]
+
+
 
 export const journalEntries: entryType[] = [
   {
