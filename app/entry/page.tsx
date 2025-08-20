@@ -22,8 +22,8 @@ import { useSaveShortcut } from "@/customHooks/saveShortcut";
 import EntryTopBar from "@/components/entryComponents/entryTopBar";
 import { savingEntry } from "@/utils/savingContent/savingEntry";
 import EntrySideBar from "@/components/entryComponents/selectAnImage";
-
-
+import { generateDiff } from "@/utils/savingContent/savingEntry"
+import { updateEntry } from "@/utils/savingContent/savingEntry";
 
 export default function EntryPage() {
   const [_, setEditorState] = useState({});
@@ -73,8 +73,8 @@ export default function EntryPage() {
 
 
   const handleSaveContentEntry = () => {
-    const entryContent = editor.getHTML();
-    const textOnly = entryContent
+    const newHTML = editor.getHTML();
+    const textOnly = newHTML
       .replace(/<[^>]+>/g, "")
       .replace(/&nbsp;/g, "")
       .replace(/\s+/g, "")
@@ -84,8 +84,15 @@ export default function EntryPage() {
       setDisableSaveButtom(false)
       return;
     }
-    const newhtml = editor.getHTML();
-    // savingEntry(entryContent, stagedImages).then(() => setDisableSaveButtom(false));
+
+    if (oldHTML === "") {
+      savingEntry(newHTML).then((res) => { if (res) { setOldHTML(newHTML); } setDisableSaveButtom(false) });
+    }
+    else {
+      const diff = generateDiff(oldHTML, newHTML);
+      console.log("diff: ", diff);
+      updateEntry(diff).then(res => { if (res) { setOldHTML(newHTML) }; setDisableSaveButtom(false) })
+    }
   };
 
 

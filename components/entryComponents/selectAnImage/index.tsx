@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { getAllImages } from "@/APIs/S3/s3";
 import { useRef } from "react";
 import { uploadToS3 } from "@/APIs/S3/s3";
-import { iSImage } from "@/utils/images";
+
+
 const EntrySideBar = ({
     editor,
     sideBarBool,
