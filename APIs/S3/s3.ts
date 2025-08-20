@@ -1,5 +1,6 @@
-import { toastControl, toasting } from "@/utils/toast";
 import axios from "axios";
+import { toastControl, toasting } from "@/utils/toast";
+import { iSImage } from "@/utils/images";
 
 export const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE;
 interface uploadresponseT {
@@ -8,7 +9,11 @@ interface uploadresponseT {
 }
 
 export const uploadToS3 = async (file: File) => {
-    const toastId=toastControl("loading","uploading image");
+    if (!iSImage(file.name.split(".").pop()?.toLowerCase())) {
+        toasting("not an Image", "error");
+        return;
+    };
+    const toastId = toastControl("loading", "uploading image");
     try {
         const formData = new FormData();
         formData.append("file", file);
@@ -21,11 +26,11 @@ export const uploadToS3 = async (file: File) => {
                 },
             }
         );
-        toastControl("success","Uploading Successfully",toastId);
-        console.log("response.data.url: ",response.data.url);
-        return { "key":response.data.Key,"url": response.data.url};
+        toastControl("success", "Uploading Successfully", toastId);
+        console.log("response.data.url: ", response.data.url);
+        return { "key": response.data.Key, "url": response.data.url };
     } catch (error: any) {
-        toastControl("error","Error Uploading Image",toastId);
+        toastControl("error", "Error Uploading Image", toastId);
         console.error(
             "Error uploading file:",
             error.response?.data?.error || error.message
