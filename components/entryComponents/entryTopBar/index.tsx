@@ -11,12 +11,14 @@ const EntryTopBar = ({
     disableSaveButtom,
     setDisableSaveButtom,
     handleSaveContentEntry,
-    setSideBarBool
+    setSideBarBool,
+    sideMenuBool,
+    setSideMenuBool
 }: any) => {
     const router = useRouter();
     return <div className="fixed z-10 flex flex-wrap gap-3 justify-between mb-4 mx-5 bg-white rounded-lg">
         <button
-            className="p-2 bg-blue-800 hover:bg-blue-700 rounded-lg text-white"
+            className="p-2 bg-blue-800 hover:bg-blue-700 rounded-lg text-white hover:cursor-pointer"
             onClick={() => router.push("/entries")}
         >
             Return
@@ -58,7 +60,7 @@ const EntryTopBar = ({
         </button>
         <button
             className="hover:bg-gray-100 rounded-sm p-2"
-            onClick={()=>{setSideBarBool(true)}}
+            onClick={() => { setSideBarBool(true) }}
         >
             Image
         </button>
@@ -125,9 +127,15 @@ const EntryTopBar = ({
             />
         </label>
         <button
+            className={`p-2 ${sideMenuBool ? "bg-gray-300" : "bg-purple-800 hover:bg-purple-700"} rounded-lg text-white hover:cursor-pointer`}
+            onClick={() => setSideMenuBool(true)}
+        >
+            Add Task
+        </button>
+        <button
             disabled={disableSaveButtom}
             onClick={() => { setDisableSaveButtom(true); handleSaveContentEntry() }}
-            className={`p-2 ${disableSaveButtom ? "bg-gray-300" : "bg-blue-800 hover:bg-blue-700"} rounded-lg text-white`}>
+            className={`p-2 ${disableSaveButtom ? "bg-gray-300" : "bg-blue-800 hover:bg-blue-700"} rounded-lg text-white hover:cursor-pointer`}>
             Save
         </button>
     </div>

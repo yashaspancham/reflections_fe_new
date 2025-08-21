@@ -24,6 +24,7 @@ import { savingEntry } from "@/utils/savingContent/savingEntry";
 import EntrySideBar from "@/components/entryComponents/selectAnImage";
 import { generateDiff } from "@/utils/savingContent/savingEntry"
 import { updateEntry } from "@/utils/savingContent/savingEntry";
+import TasksSideMenu from "@/components/taskSideMenu"
 
 export default function EntryPage() {
   const [_, setEditorState] = useState({});
@@ -31,6 +32,7 @@ export default function EntryPage() {
   const [oldHTML, setOldHTML] = useState("");
   const [sideBarBool, setSideBarBool] = useState(false);
   const [disableSaveButtom, setDisableSaveButtom] = useState<boolean>(false);
+  const [sideMenuBool, setSideMenuBool] = useState(false);
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -103,6 +105,8 @@ export default function EntryPage() {
         setDisableSaveButtom={setDisableSaveButtom}
         handleSaveContentEntry={handleSaveContentEntry}
         setSideBarBool={setSideBarBool}
+        sideMenuBool={sideMenuBool}
+        setSideMenuBool={setSideMenuBool}
       />
 
       <EditorContent
@@ -114,6 +118,7 @@ export default function EntryPage() {
         sideBarBool={sideBarBool}
         setSideBarBool={setSideBarBool}
       />
+      <TasksSideMenu sideMenuBool={sideMenuBool} setSideMenuBool={setSideMenuBool} />
     </div>
   );
 }
