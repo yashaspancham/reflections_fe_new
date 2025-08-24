@@ -20,10 +20,9 @@ import { TextStyle, Color } from "@tiptap/extension-text-style";
 import { toasting } from "@/utils/toast";
 import { useSaveShortcut } from "@/customHooks/saveShortcut";
 import EntryTopBar from "@/components/entryComponents/entryTopBar";
-import { savingEntry } from "@/utils/savingContent/savingEntry";
 import EntrySideBar from "@/components/entryComponents/selectAnImage";
 import { generateDiff } from "@/utils/savingContent/savingEntry"
-import { updateEntry } from "@/utils/savingContent/savingEntry";
+import { updateEntry,savingEntry } from "@/APIs/Entry/entry";
 import TasksSideMenu from "@/components/taskSideMenu"
 
 export default function EntryPage() {
@@ -33,6 +32,7 @@ export default function EntryPage() {
   const [sideBarBool, setSideBarBool] = useState(false);
   const [disableSaveButtom, setDisableSaveButtom] = useState<boolean>(false);
   const [sideMenuBool, setSideMenuBool] = useState(false);
+  const [entryID, setEntryID] = useState<Number | null>(null);
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -88,11 +88,11 @@ export default function EntryPage() {
     }
 
     if (oldHTML === "") {
-      savingEntry(newHTML).then((res) => { if (res) { setOldHTML(newHTML); } setDisableSaveButtom(false) });
+      savingEntry(newHTML).then((res) => { if (res.success) { setOldHTML(newHTML); setEntryID(res.entry_id); } setDisableSaveButtom(false) });
     }
     else {
       const diff = generateDiff(oldHTML, newHTML);
-      updateEntry(diff).then(res => { if (res) { setOldHTML(newHTML) }; setDisableSaveButtom(false) })
+      updateEntry(diff,entryID).then(res => { if (res) { setOldHTML(newHTML) }; setDisableSaveButtom(false) })
     }
   };
 

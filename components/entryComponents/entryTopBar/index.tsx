@@ -127,16 +127,16 @@ const EntryTopBar = ({
             />
         </label>
         <button
-            className={`p-2 ${sideMenuBool ? "bg-gray-300" : "bg-purple-800 hover:bg-purple-700"} rounded-lg text-white hover:cursor-pointer`}
-            onClick={() => setSideMenuBool(true)}
-        >
-            Add Task
-        </button>
-        <button
             disabled={disableSaveButtom}
             onClick={() => { setDisableSaveButtom(true); handleSaveContentEntry() }}
             className={`p-2 ${disableSaveButtom ? "bg-gray-300" : "bg-blue-800 hover:bg-blue-700"} rounded-lg text-white hover:cursor-pointer`}>
             Save
+        </button>
+        <button
+            className={`p-2 ${sideMenuBool ? "bg-gray-300" : "bg-purple-800 hover:bg-purple-700"} rounded-lg text-white hover:cursor-pointer`}
+            onClick={() => setSideMenuBool(true)}
+        >
+            Add Task
         </button>
     </div>
 }

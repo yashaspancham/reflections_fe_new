@@ -1,33 +1,34 @@
 import { entryType } from "@/utils/types";
-import Image from "next/image";
 
 type EntryCardProps = {
   entry: entryType;
 };
 
-const EntryCard = ({ entry }:EntryCardProps) => {
+const EntryCard = ({ entry }: EntryCardProps) => {
   return (
     <div
-      className="flex flex-row md:flex-col max-md:py-5 max-md:gap-2 md:gap-3 max-md:border-b-1 max-md:mt-2 max-md:border-black md:max-w-[250px] max-h-[450px] p-3 md:p-5 md:bg-gray-50 md:rounded-lg hover:cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out"
+      className={`
+      flex flex-row max-md:px-1 md:flex-col max-md:py-5 gap-2 md:gap-3 max-md:w-full
+      max-md:border-b-1 max-md:mt-2 max-md:border-black md:max-w-[250px] md:max-h-[380px] md:h-[380px] md:p-5 md:bg-gray-50
+      md:rounded-lg hover:cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out
+      `}
     >
-      <Image
+      <img
         src={"/defaultImageForEntry.png"}
         alt="coveriamgeForentry"
-        width="200"
-        height="200"
-        className="rounded-lg"
+        className="rounded-lg w-[200px] max-sm:max-w-[150px] max-[400px]:max-w-[100px]"
       />
-      <div className="flex flex-col gap-2 md:gap-4">
-        <p className="text-lg font-bold truncate max-[321px]:max-w-[150px] max-[280px]:max-w-[100px] max-[400px]:max-w-[200px]">
+      <div className="flex flex-col  gap-1 md:gap-2 max-md:w-fit">
+        <p className="text-md md:text-lg font-bold truncate overflow-hidden max-sm:max-w-[200px] max-[400px]:max-w-[120px] max-[350px]:max-w-[50px]">
           {entry.title}
         </p>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 max-sm:text-xs">
           Created at: {new Date(entry.createdAt).toLocaleDateString()}
         </p>
-        <p className="text-sm text-gray-500">
-          Updated at: {new Date(entry.updatedAt).toLocaleDateString()}
+        <p className="text-sm text-gray-500 max-sm:text-xs">
+          Updated at: {new Date(entry.lastUpdated).toLocaleDateString()}
         </p>
-        <p className="text-gray-700 max-h-[100px] overflow-hidden">
+        <p className="text-gray-700 max-h-[100px] overflow-hidden max-sm:text-sm">
           {entry.content}
         </p>
       </div>
