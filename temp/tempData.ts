@@ -2,7 +2,7 @@ import { entryType } from "@/utils/types"
 
 export const tasksList = [
   {
-    "text": "Write blog about Cloud Resume Challenge fgwerjmgajeruio9rhgejarui9geruighuietjhghetjhghgherge5aer89guyaer89yeughaeruhguieh",
+    "text": "Write blog about Cloud Resume Challenge",
     "createdOn": "2025-08-01T10:30:00Z",
     "lastUpdatedOn": "2025-08-10T15:00:00Z",
     "finishTaskBy": "2025-08-20T23:59:00Z",
