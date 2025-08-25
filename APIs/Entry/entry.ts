@@ -43,6 +43,15 @@ export const getAllEntries = async (page: number = 1) => {
     } catch (error: any) {
         console.log("Error loading entries", error);
         toasting("Error loading entries", "error");
-        return [];
+        return { entries: [], total_pages: 0, current_page: 1 };
     }
 };
+
+export const getEntryById=async (entry_id:number)=>{
+    try{
+        
+    }
+    catch(error:any){
+
+    }
+} 
