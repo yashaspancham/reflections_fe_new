@@ -43,7 +43,7 @@ const MediaPage = () => {
     delete_iamge(url).then((res) => {
       if (res) {
         getAllImages().then((res) => {
-          console.log("res: ", res.files);
+          console.log("getAllImages-res: ", res.files);
           setUrlList(res.files);
         });
       }

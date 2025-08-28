@@ -23,6 +23,7 @@ import EntrySideBar from "@/components/entryComponents/selectAnImage";
 import { generateDiff } from "@/utils/savingContent/savingEntry";
 import { updateEntry, savingEntry, getEntryById } from "@/APIs/Entry/entry";
 import TasksSideMenu from "@/components/taskSideMenu";
+import ConfirmDeletePopUp from "@/components/entryComponents/ConfirmDeletePopUp";
 
 export default function EntryPage() {
   const [_, setEditorState] = useState({});
@@ -32,6 +33,7 @@ export default function EntryPage() {
   const [disableSaveButtom, setDisableSaveButtom] = useState<boolean>(false);
   const [sideMenuBool, setSideMenuBool] = useState(false);
   const [entryID, setEntryID] = useState<Number | null>(null);
+  const [confirmDeletePopUp,setConfirmDeletePopUp]=useState(false);
   const searchParams = useSearchParams();
 
   const editor = useEditor({
@@ -67,7 +69,7 @@ export default function EntryPage() {
     onSelectionUpdate: () => setEditorState({}),
     onCreate: () => {
       const entryIdStr = searchParams.get("entry_id");
-      if (entryIdStr!==null) {
+      if (entryIdStr !== null) {
         const entry_id = parseInt(entryIdStr);
         getEntryById(entry_id).then((res: any) => {
           if (res && editor) {
@@ -109,6 +111,9 @@ export default function EntryPage() {
         }
         setDisableSaveButtom(false);
       });
+    } else if (oldHTML === newHTML) {
+      toasting("nothing to save", "error");
+      setDisableSaveButtom(false);
     } else {
       const diff = generateDiff(oldHTML, newHTML);
       updateEntry(diff, entryID).then((res) => {
@@ -120,6 +125,10 @@ export default function EntryPage() {
     }
   };
 
+  const handleConfirmDeletePopUp=()=>{
+    setConfirmDeletePopUp(true);
+    document.body.style.overflow="hidden"
+  }
   return (
     <div className="sm:p-10 p-5">
       <EntryTopBar
@@ -130,6 +139,7 @@ export default function EntryPage() {
         setSideBarBool={setSideBarBool}
         sideMenuBool={sideMenuBool}
         setSideMenuBool={setSideMenuBool}
+        handleConfirmDeletePopUp={handleConfirmDeletePopUp}
       />
 
       <EditorContent
@@ -144,6 +154,11 @@ export default function EntryPage() {
       <TasksSideMenu
         sideMenuBool={sideMenuBool}
         setSideMenuBool={setSideMenuBool}
+      />
+      <ConfirmDeletePopUp
+      confirmDeletePopUp={confirmDeletePopUp} 
+      setConfirmDeletePopUp={setConfirmDeletePopUp}
+      entryID={entryID}
       />
     </div>
   );
