@@ -38,7 +38,6 @@ export const getAllEntries = async (page: number = 1) => {
         const response = await axios.get(`${apiBaseURL}journal/getAllEntries/`, {
             params: { page },
         });
-        console.log(response.data);
         return response.data;
     } catch (error: any) {
         console.log("Error loading entries", error);
@@ -47,11 +46,16 @@ export const getAllEntries = async (page: number = 1) => {
     }
 };
 
-export const getEntryById=async (entry_id:number)=>{
-    try{
-        
+export const getEntryById = async (entry_id: number) => {
+    try {
+        const response = await axios.get(`${apiBaseURL}journal/getEntryById`, {
+            params: { "entry_id": entry_id }
+        });
+        console.log("getEntryById-res: ",response.data);
+        return response.data;
     }
-    catch(error:any){
-
+    catch (error: any) {
+        console.log("error: ",error);
+        return null;
     }
 } 

@@ -1,8 +1,7 @@
 "use client";
 
-
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Bold from "@tiptap/extension-bold";
@@ -21,9 +20,9 @@ import { toasting } from "@/utils/toast";
 import { useSaveShortcut } from "@/customHooks/saveShortcut";
 import EntryTopBar from "@/components/entryComponents/entryTopBar";
 import EntrySideBar from "@/components/entryComponents/selectAnImage";
-import { generateDiff } from "@/utils/savingContent/savingEntry"
-import { updateEntry,savingEntry } from "@/APIs/Entry/entry";
-import TasksSideMenu from "@/components/taskSideMenu"
+import { generateDiff } from "@/utils/savingContent/savingEntry";
+import { updateEntry, savingEntry, getEntryById } from "@/APIs/Entry/entry";
+import TasksSideMenu from "@/components/taskSideMenu";
 
 export default function EntryPage() {
   const [_, setEditorState] = useState({});
@@ -33,6 +32,8 @@ export default function EntryPage() {
   const [disableSaveButtom, setDisableSaveButtom] = useState<boolean>(false);
   const [sideMenuBool, setSideMenuBool] = useState(false);
   const [entryID, setEntryID] = useState<Number | null>(null);
+  const searchParams = useSearchParams();
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -64,6 +65,19 @@ export default function EntryPage() {
     immediatelyRender: false,
     onUpdate: () => setEditorState({}),
     onSelectionUpdate: () => setEditorState({}),
+    onCreate: () => {
+      const entryIdStr = searchParams.get("entry_id");
+      if (entryIdStr!==null) {
+        const entry_id = parseInt(entryIdStr);
+        getEntryById(entry_id).then((res: any) => {
+          if (res && editor) {
+            setOldHTML(res.entryContent);
+            editor.commands.setContent(res.entryContent);
+          }
+        });
+        setEntryID(entry_id);
+      }
+    },
   });
 
   useSaveShortcut(() => {
@@ -71,8 +85,8 @@ export default function EntryPage() {
     setDisableSaveButtom(true);
     handleSaveContentEntry();
   });
-  if (!editor) return null;
 
+  if (!editor) return null;
 
   const handleSaveContentEntry = () => {
     const newHTML = editor.getHTML();
@@ -83,19 +97,28 @@ export default function EntryPage() {
       .trim();
     if (!textOnly) {
       toasting("Nothing to save", "error");
-      setDisableSaveButtom(false)
+      setDisableSaveButtom(false);
       return;
     }
 
     if (oldHTML === "") {
-      savingEntry(newHTML).then((res) => { if (res.success) { setOldHTML(newHTML); setEntryID(res.entry_id); } setDisableSaveButtom(false) });
-    }
-    else {
+      savingEntry(newHTML).then((res) => {
+        if (res.success) {
+          setOldHTML(newHTML);
+          setEntryID(res.entry_id);
+        }
+        setDisableSaveButtom(false);
+      });
+    } else {
       const diff = generateDiff(oldHTML, newHTML);
-      updateEntry(diff,entryID).then(res => { if (res) { setOldHTML(newHTML) }; setDisableSaveButtom(false) })
+      updateEntry(diff, entryID).then((res) => {
+        if (res) {
+          setOldHTML(newHTML);
+        }
+        setDisableSaveButtom(false);
+      });
     }
   };
-
 
   return (
     <div className="sm:p-10 p-5">
@@ -118,7 +141,10 @@ export default function EntryPage() {
         sideBarBool={sideBarBool}
         setSideBarBool={setSideBarBool}
       />
-      <TasksSideMenu sideMenuBool={sideMenuBool} setSideMenuBool={setSideMenuBool} />
+      <TasksSideMenu
+        sideMenuBool={sideMenuBool}
+        setSideMenuBool={setSideMenuBool}
+      />
     </div>
   );
 }

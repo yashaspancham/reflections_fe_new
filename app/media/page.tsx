@@ -11,7 +11,6 @@ const MediaPage = () => {
   const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(false);
   useEffect(() => {
     getAllImages().then((res) => {
-      console.log("res: ", res.files);
       setUrlList(res.files);
     });
   }, []);
