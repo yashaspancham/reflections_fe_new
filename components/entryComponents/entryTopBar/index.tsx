@@ -76,23 +76,22 @@ const EntryTopBar = ({
       <select
         onChange={(e) => {
           editor.chain().focus().setFontFamily(e.target.value).run();
-          editor.commands.setTextSelection({
-            from: editor.state.selection.to + 1,
-            to: editor.state.selection.to + 1,
-          });
         }}
         defaultValue=""
       >
-        <option value="" disabled>
+        <option value={ editor.getAttributes('textStyle').fontFamily ||""} disabled>
           Default
         </option>
-        <option value="Arial">Arial</option>
-        <option value="Georgia">Georgia</option>
+        <option value="">Default</option>
+        <option value="arial">Arial</option>
+        {/* <option value="Georgia">Georgia</option> */}
         <option value="Courier New">Courier New</option>
         <option value="Inter">Inter</option>
         <option value="Merriweather">Merriweather</option>
         <option value="Roboto Mono">Roboto Mono</option>
       </select>
+
+
       <select
         className="rounded p-1"
         onChange={(e) => {

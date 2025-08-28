@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -24,6 +24,7 @@ import { generateDiff } from "@/utils/savingContent/savingEntry";
 import { updateEntry, savingEntry, getEntryById } from "@/APIs/Entry/entry";
 import TasksSideMenu from "@/components/taskSideMenu";
 import ConfirmDeletePopUp from "@/components/entryComponents/ConfirmDeletePopUp";
+import { useRouter } from "next/navigation";
 
 export default function EntryPage() {
   const [_, setEditorState] = useState({});
@@ -35,7 +36,7 @@ export default function EntryPage() {
   const [entryID, setEntryID] = useState<Number | null>(null);
   const [confirmDeletePopUp,setConfirmDeletePopUp]=useState(false);
   const searchParams = useSearchParams();
-
+  const router=useRouter();
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -108,6 +109,7 @@ export default function EntryPage() {
         if (res.success) {
           setOldHTML(newHTML);
           setEntryID(res.entry_id);
+          router.replace(`?entry_id=${res.entry_id}`);
         }
         setDisableSaveButtom(false);
       });
@@ -144,7 +146,7 @@ export default function EntryPage() {
 
       <EditorContent
         editor={editor}
-        className="ProseMirror min-h-[300px] sm:pt-24 pt-[200px]"
+        className="ProseMirror min-h-[300px] sm:pt-30 pt-[200px]"
       />
       <EntrySideBar
         editor={editor}
