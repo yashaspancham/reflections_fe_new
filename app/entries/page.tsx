@@ -14,7 +14,6 @@ export default function Home() {
   const [entriesDetails, setEntriesDetails] = useState<any>({});
   const searchParams = useSearchParams();
   useEffect(() => {
-    setLoaded(true);
     let pagenumebr;
     const pagenumebrStr = searchParams.get("page");
     if (pagenumebrStr === null) {
@@ -22,11 +21,13 @@ export default function Home() {
     } else {
       pagenumebr = Number(pagenumebrStr);
     }
-    // console.log("pagenumebr: ", pagenumebr);
     getAllEntries(pagenumebr).then((res) => {
-      setEntries(res.entries);
+      if (res.entries) {
+        setEntries(res.entries);
+      }
       setEntriesDetails(res);
     });
+    setLoaded(true);
   }, []);
 
   return (
@@ -39,13 +40,20 @@ export default function Home() {
               <p>No entries</p>
             ) : (
               entries.map((item, index) => (
-                <div key={index}>
+                <div
+                  onClick={() => {
+                    if (item) {
+                      window.location.href = `/entry?entry_id=${item.id}`;
+                    }
+                  }}
+                  key={index}
+                >
                   <EntryCard entry={item} />
                 </div>
               ))
             )}
           </div>
-        <PagesNavEntries entriesDetails={entriesDetails} />
+          <PagesNavEntries entriesDetails={entriesDetails} />
         </div>
         <AddEntryButton />
       </main>

@@ -3,4 +3,5 @@ export type entryType = {
   content: string;
   createdAt: string;
   lastUpdated: string;
+  url:string;
 };

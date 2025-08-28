@@ -11,7 +11,6 @@ const MediaPage = () => {
   const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(false);
   useEffect(() => {
     getAllImages().then((res) => {
-      console.log("res: ", res.files);
       setUrlList(res.files);
     });
   }, []);
@@ -44,7 +43,7 @@ const MediaPage = () => {
     delete_iamge(url).then((res) => {
       if (res) {
         getAllImages().then((res) => {
-          console.log("res: ", res.files);
+          console.log("getAllImages-res: ", res.files);
           setUrlList(res.files);
         });
       }
