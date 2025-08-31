@@ -27,7 +27,6 @@ export const uploadToS3 = async (file: File) => {
             }
         );
         toastControl("success", "Uploading Successfully", toastId);
-        console.log("response.data.url: ", response.data.url);
         return { "key": response.data.Key, "url": response.data.url };
     } catch (error: any) {
         toastControl("error", "Error Uploading Image", toastId);

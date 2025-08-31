@@ -53,7 +53,11 @@ export default function Home() {
               ))
             )}
           </div>
-          <PagesNavEntries entriesDetails={entriesDetails} />
+          {entries.length === 0 ? (
+            <></>
+          ) : (
+            <PagesNavEntries entriesDetails={entriesDetails} />
+          )}
         </div>
         <AddEntryButton />
       </main>
