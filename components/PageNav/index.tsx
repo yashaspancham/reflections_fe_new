@@ -17,7 +17,7 @@ const PagesNavEntries = ({ entriesDetails }: any) => {
         {entriesDetails?.prev_page && (
           <button
             onClick={() => {
-              window.location.href = `${url}?${entriesDetails.prev_page.split("?")[1]}`;
+              window.location.href = `${url}?${entriesDetails.prev_page.split("?")[1].split("&")[0]}`;
             }}
             className="p-3 bg-blue-900 rounded-lg text-white hover:cursor-pointer hover:bg-blue-800"
           >
@@ -46,7 +46,7 @@ const PagesNavEntries = ({ entriesDetails }: any) => {
         {entriesDetails.next_page !== null && (
           <button
             onClick={() => {
-              window.location.href = `${url}?${entriesDetails.next_page.split("?")[1]}`;
+              window.location.href = `${url}?${(entriesDetails.next_page.split("?")[1]).split("&")[0]}`;
             }}
             className="p-3 bg-blue-900 rounded-lg text-white hover:cursor-pointer hover:bg-blue-800"
           >
