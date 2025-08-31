@@ -8,6 +8,7 @@ import AddEntryButton from "@/components/addEntryButton";
 import SortEntriesOptions from "@/components/SortEntriesDiv";
 import PagesNavEntries from "@/components/PageNav";
 import { getAllEntries } from "@/APIs/Entry/entry";
+import { readSortEntriesInLocalStore } from "@/utils/localStore";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -16,6 +17,10 @@ export default function Home() {
 
   const searchParams = useSearchParams();
   useEffect(() => {
+    onLoadFunction();
+  }, []);
+  const onLoadFunction = async () => {
+    const storedSort = await readSortEntriesInLocalStore();
     let pagenumebr;
     const pagenumebrStr = searchParams.get("page");
     if (pagenumebrStr === null) {
@@ -23,15 +28,14 @@ export default function Home() {
     } else {
       pagenumebr = Number(pagenumebrStr);
     }
-    getAllEntries(pagenumebr, "-lastUpdated").then((res) => {
+    getAllEntries(pagenumebr, storedSort).then((res) => {
       if (res.entries) {
         setEntries(res.entries);
       }
       setEntriesDetails(res);
     });
     setLoaded(true);
-  }, []);
-
+  };
   return (
     loaded && (
       <main className="w-full h-full z-0 lg:flex">
