@@ -143,7 +143,6 @@ export default function EntryPage() {
         setSideMenuBool={setSideMenuBool}
         handleConfirmDeletePopUp={handleConfirmDeletePopUp}
       />
-
       <EditorContent
         editor={editor}
         className="ProseMirror min-h-[300px] sm:pt-30 pt-[200px]"

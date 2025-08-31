@@ -33,12 +33,12 @@ export const updateEntry = async (diff: string, entryID: Number | null) => {
 }
 
 
-export const getAllEntries = async (page: number = 1) => {
+export const getAllEntries = async (page: number = 1,sort:string) => {
     try {
         const response = await axios.get(`${apiBaseURL}journal/getAllEntries/`, {
-            params: { page },
+            params: { page, sort },
         });
-        console.log("getAllEntries-res: ",response.data);
+
         return response.data;
     } catch (error: any) {
         console.log("Error loading entries", error);
