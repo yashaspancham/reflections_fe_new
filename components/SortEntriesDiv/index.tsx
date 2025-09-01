@@ -6,6 +6,8 @@ import {
   readSortEntriesInLocalStore,
   writeSortEntriesInLocalStore,
 } from "@/utils/localStore";
+import SearchEntries from "../SearchEntries";
+
 
 const SortEntriesOptions = ({ setEntries, setEntriesDetails }: any) => {
   const [sort, setSort] = useState("-lastUpdated");
@@ -47,7 +49,8 @@ const SortEntriesOptions = ({ setEntries, setEntriesDetails }: any) => {
   };
   return (
     loaded && (
-      <div className="absolute z-10 right-40 top-20 flex gap-3">
+      <div className="absolute z-10 right-40 top-20 flex gap-3 items-center justify-center">
+        <SearchEntries/>
         <button
           disabled={disableSort}
           onClick={() => handleSort("lastUpdated")}
