@@ -8,37 +8,31 @@ const EntryCard = ({ entry }: EntryCardProps) => {
   return (
     <div
       className={`
-      flex flex-row max-md:px-1 md:flex-col max-md:py-5 gap-2 md:gap-3 max-md:w-full
-      max-md:border-b-1 max-md:mt-2 max-md:border-black md:max-w-[250px] md:max-h-[450px] md:h-[450px] md:p-5 md:bg-gray-50
-      md:rounded-lg hover:cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out
+        flex flex-row md:flex-col gap-3 w-full
+        border-b md:border-0 md:max-w-[250px] md:max-h-[450px] md:h-[450px]
+        py-3 md:p-5 md:bg-gray-50 md:rounded-lg
+        hover:cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out
       `}
     >
-      <div
-        className="
-        self-center
-      max-[400px]:min-h-[100px] max-[400px]:h-[100px] max-[400px]:w-[100px] max-[400px]:max-w-[100px] 
-       min-h-[200px] h-[200px]  w-[200px] min-w-[200px]
-        flex items-center justify-center"
-      >
+      <div className="flex items-center justify-center flex-shrink-0 w-20 h-20 md:w-[200px] md:h-[200px]">
         <img
           src={!entry.url ? "/defaultImageForEntry.png" : entry.url}
-          alt="coveriamgeForentry"
-          className="rounded-lg max-[400px]:max-h-[100px] max-[400px]:max-w-[100px]  max-h-[200px] max-w-[200px] "
+          alt="coverImageForEntry"
+          className="rounded-lg object-cover w-full h-full"
         />
       </div>
-      <div className="flex flex-col  gap-1 md:gap-2 max-md:w-fit">
-        <p className="text-md md:text-lg font-bold truncate overflow-hidden max-sm:max-w-[200px] max-[400px]:max-w-[120px] max-[350px]:max-w-[50px]">
+
+      <div className="flex flex-col gap-1 md:gap-2 flex-1">
+        <p className="text-sm md:text-lg font-bold truncate max-w-[200px] md:max-w-full">
           {entry.title}
         </p>
-        <div>
-          <p className="text-sm text-gray-500 max-sm:text-xs">
-            Created at: {new Date(entry.createdAt).toLocaleDateString()}
-          </p>
-          <p className="text-sm text-gray-500 max-sm:text-xs">
-            Updated at: {new Date(entry.lastUpdated).toLocaleDateString()}
-          </p>
+
+        <div className="text-xs md:text-sm text-gray-500">
+          <p>Created: {new Date(entry.createdAt).toLocaleDateString()}</p>
+          <p>Updated: {new Date(entry.lastUpdated).toLocaleDateString()}</p>
         </div>
-        <p className="text-gray-700 max-h-[100px] overflow-hidden max-sm:text-sm">
+
+        <p className="text-gray-700 text-sm md:text-base max-h-[80px] md:max-h-[100px] overflow-hidden">
           {entry.content}
         </p>
       </div>
