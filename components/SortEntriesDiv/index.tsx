@@ -1,24 +1,24 @@
-"use state";
+"use client";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getAllEntries } from "@/APIs/Entry/entry";
-import {
-  readSortEntriesInLocalStore,
-  writeSortEntriesInLocalStore,
-} from "@/utils/localStore";
 import SearchEntries from "../SearchEntries";
 
-
-const SortEntriesOptions = ({ setEntries, setEntriesDetails }: any) => {
+const SortEntriesOptions = ({
+  setEntries,
+  setEntriesDetails,
+  searchString,
+  setSearchString,
+  setLoading,
+}: any) => {
   const [sort, setSort] = useState("-lastUpdated");
   const [disableSort, setDisableSort] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const searchParams = useSearchParams();
   useEffect(() => {
-    readSortEntriesInLocalStore().then((res) => {
-      setSort(res);
-      setLoaded(true);
-    });
+    setLoaded(true);
+    setSort(searchParams.get("sort")||"-lastUpdated");
+    
   }, []);
   const handleSort = (field: "lastUpdated" | "createdAt") => {
     let currentSort = "";
@@ -33,24 +33,44 @@ const SortEntriesOptions = ({ setEntries, setEntriesDetails }: any) => {
     }
 
     setDisableSort(true);
-
+    setLoading(true);
     const pageStr = searchParams.get("page");
     const pageNumber = pageStr ? Number(pageStr) : 1;
-
-    getAllEntries(pageNumber, currentSort).then((res) => {
+    getAllEntries(pageNumber, currentSort,searchString).then((res) => {
       if (res.entries) {
         setEntries(res.entries);
       }
       setEntriesDetails(res);
       setSort(currentSort);
-      writeSortEntriesInLocalStore(currentSort);
       setDisableSort(false);
+      setLoading(false);
     });
+  };
+
+  const handleSearchChange = (e: any) => {
+    if (e.key === "Enter") {
+      const pageStr = searchParams.get("page");
+      const pageNumber = pageStr ? Number(pageStr) : 1;
+      setLoading(true);
+      getAllEntries(pageNumber, sort, e.target.value).then((res) => {
+        if (res.entries) {
+          setEntries(res.entries);
+        }
+        setEntriesDetails(res);
+        setDisableSort(false);
+        setLoading(false);
+
+      });
+    } 
   };
   return (
     loaded && (
       <div className="absolute z-10 right-40 top-20 flex gap-3 items-center justify-center">
-        <SearchEntries/>
+        <SearchEntries
+          searchString={searchString}
+          handleSearchChange={handleSearchChange}
+          setSearchString={setSearchString}
+        />
         <button
           disabled={disableSort}
           onClick={() => handleSort("lastUpdated")}
