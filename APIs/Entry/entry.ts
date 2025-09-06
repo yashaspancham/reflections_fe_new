@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toastControl, toasting } from "@/utils/toast";
 
-const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE
+const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE;
 
 export const savingEntry = async (editorContent: string) => {
     const toastId = toastControl("loading", "Creating Entry...");
@@ -38,7 +38,6 @@ export const getAllEntries = async (page: number = 1,sort:string,search:string="
         const response = await axios.get(`${apiBaseURL}journal/getAllEntries/`, {
             params: { page, sort,search },
         });
-        console.log("getAllEntries-res: ",response.data);
         return response.data;
     } catch (error: any) {
         console.log("Error loading entries", error);
@@ -46,6 +45,7 @@ export const getAllEntries = async (page: number = 1,sort:string,search:string="
         return { entries: [], total_pages: 0, current_page: 1 };
     }
 };
+
 
 export const getEntryById = async (entry_id: number) => {
     try {
@@ -61,6 +61,7 @@ export const getEntryById = async (entry_id: number) => {
         return null;
     }
 } 
+
 
 export const deleteEntry=async(entry_id: number,confirmationText:string)=>{
     if(confirmationText!=="delete entry"){

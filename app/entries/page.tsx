@@ -8,7 +8,6 @@ import AddEntryButton from "@/components/addEntryButton";
 import SortEntriesOptions from "@/components/SortEntriesDiv";
 import PagesNavEntries from "@/components/PageNav";
 import { getAllEntries } from "@/APIs/Entry/entry";
-import { readSortEntriesInLocalStore } from "@/utils/localStore";
 import LoadingEntries from "@/components/loadingEntries";
 
 export default function Home() {
@@ -24,7 +23,6 @@ export default function Home() {
   }, []);
 
   const onLoadFunction = async () => {
-    const storedSort = await readSortEntriesInLocalStore();
     let pagenumebr;
     const pagenumebrStr = searchParams.get("page");
     const searchString=searchParams.get("search")||"";
@@ -34,7 +32,7 @@ export default function Home() {
       pagenumebr = Number(pagenumebrStr);
     }
     setLoading(true);
-    getAllEntries(pagenumebr, storedSort, searchString).then((res) => {
+    getAllEntries(pagenumebr, "-lastUpdated", searchString).then((res) => {
       if (res.entries) {
         setEntries(res.entries);
       }
@@ -54,7 +52,7 @@ export default function Home() {
           setEntriesDetails={setEntriesDetails}
           setLoading={setLoading}
         />
-        <div className="mt-[100px] mb-[100px] max-md:mb-[200px] z-1 default flex flex-col h-full w-full items-center justify-center xl:p-20 lg:p-16 md:p-12 sm:p-8">
+        <div className="md:mt-[100px] mb-[100px] max-md:mb-[200px] z-1 default flex flex-col h-full w-full items-center justify-center xl:p-20 lg:p-16 md:p-12 sm:p-8">
           {loading ? (
             <LoadingEntries/>
           ) : (
