@@ -22,15 +22,15 @@ const TaskComponent = ({ item }: any) => {
         finsish by: {new Date(item.dueDate).toLocaleDateString()}
       </p>
       <div className="flex gap-1 self-end mt-auto">
-        <button className="hover:cursor-pointer hover:bg-gray-200 text-white w-fit p-1.5 rounded-lg">
+        {item.status !== "completed" && (<button className="hover:cursor-pointer hover:bg-gray-200 text-white w-fit p-1.5 rounded-lg">
           <Image
             src={"/icons/updateTask.png"}
             alt="edit Icon"
             width={20}
             height={20}
           />
-        </button>
-        {item.status !== "completed" && (
+        </button>)}
+        {/* {item.status !== "completed" && (
           <button className="hover:cursor-pointer hover:bg-green-100 text-white w-fit p-1.5 rounded-lg">
             <Image
               src={"/icons/doneLogo.png"}
@@ -39,7 +39,7 @@ const TaskComponent = ({ item }: any) => {
               height={30}
             />
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

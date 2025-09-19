@@ -48,7 +48,7 @@ const TasksPage = () => {
 
   return (
     loaded && (
-      <div className="w-full h-full z-0 lg:flex">
+      <div className="w-full h-full z-0 flex">
         <SideBarMenu />
         <AddTaskButton
           sideMenuBool={sideMenuBool}
@@ -74,7 +74,7 @@ const TasksPage = () => {
             </div>
           )}
 
-          <div className="w-full flex justify-center p-4">
+          <div className="w-full flex justify-center max-lg:mb-[200px]">
             <TaskPagesButton taskDetails={taskDetails} />
           </div>
         </div>

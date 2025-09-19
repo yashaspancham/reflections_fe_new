@@ -42,7 +42,7 @@ const TaskSortButtons = ({
     console.log("currentSort: ", currentSort);
     const search = searchParams.get("search") || "";
     const status = searchParams.get("status") || "";
-    getTasks(pageNumber, currentSort, search,status).then((res) => {
+    getTasks(pageNumber, currentSort, search, status).then((res) => {
       setTasks(res.tasks);
       setTaskDetails(res);
       setSort(currentSort);
@@ -57,7 +57,7 @@ const TaskSortButtons = ({
       const pageNumber = pageStr ? Number(pageStr) : 1;
       const status = searchParams.get("status") || "";
       setLoading(true);
-      getTasks(pageNumber, sort, e.target.value,status).then((res) => {
+      getTasks(pageNumber, sort, e.target.value, status).then((res) => {
         if (res.success) {
           setTasks(res.tasks);
           setTaskDetails(res);
@@ -71,9 +71,9 @@ const TaskSortButtons = ({
   const handleStatusFilter = (status: string) => {
     const pageStr = searchParams.get("page");
     const pageNumber = pageStr ? Number(pageStr) : 1;
-    const search = searchParams.get("search") || ""; 
+    const search = searchParams.get("search") || "";
     setLoading(true);
-    getTasks(pageNumber, sort, search,status).then((res) => {
+    getTasks(pageNumber, sort, search, status).then((res) => {
       if (res.success) {
         setTasks(res.tasks);
         setTaskDetails(res);
@@ -85,7 +85,7 @@ const TaskSortButtons = ({
   };
   return (
     loaded && (
-      <div className="w-full flex gap-2 justify-end items-center py-4 px-20">
+      <div className="w-full flex max-md:flex-col gap-2 justify-end items-center py-4 px-20">
         <SearchEntries
           searchString={searchString}
           setSearchString={setSearchString}
@@ -98,10 +98,11 @@ const TaskSortButtons = ({
           setStatusFilter={setStatusFilter}
           handleStatusFilter={handleStatusFilter}
         />
-        <button
-          disabled={disableSort}
-          onClick={() => handleSort("dueDate")}
-          className={`flex justify-center items-center gap-1 text-xs md:text-sm 
+        <div className="flex">
+          <button
+            disabled={disableSort}
+            onClick={() => handleSort("dueDate")}
+            className={`flex justify-center items-center gap-1 text-xs md:text-sm 
             p-2 rounded-lg hover:cursor-pointer
       ${
         sort === "dueDate" || sort === "-dueDate"
@@ -109,22 +110,22 @@ const TaskSortButtons = ({
           : " hover:bg-purple-100"
       } 
         `}
-        >
-          dueDate
-          {(sort === "dueDate" || sort === "-dueDate") && (
-            <img
-              src="/icons/sortArrowLogo.png"
-              alt="sort arrow logo"
-              width={10}
-              height={10}
-              className={sort[0] === "-" ? `` : "scale-y-[-1]"}
-            />
-          )}
-        </button>
-        <button
-          disabled={disableSort}
-          onClick={() => handleSort("createdAt")}
-          className={`flex justify-center items-center gap-1 text-xs md:text-sm 
+          >
+            dueDate
+            {(sort === "dueDate" || sort === "-dueDate") && (
+              <img
+                src="/icons/sortArrowLogo.png"
+                alt="sort arrow logo"
+                width={10}
+                height={10}
+                className={sort[0] === "-" ? `` : "scale-y-[-1]"}
+              />
+            )}
+          </button>
+          <button
+            disabled={disableSort}
+            onClick={() => handleSort("createdAt")}
+            className={`flex justify-center items-center gap-1 text-xs md:text-sm 
             p-2 rounded-lg hover:cursor-pointer
         ${
           sort === "createdAt" || sort === "-createdAt"
@@ -132,22 +133,22 @@ const TaskSortButtons = ({
             : " hover:bg-purple-100"
         }
         `}
-        >
-          createdAt
-          {(sort === "createdAt" || sort === "-createdAt") && (
-            <img
-              src="/icons/sortArrowLogo.png"
-              alt="sort arrow logo"
-              width={10}
-              height={10}
-              className={sort[0] === "-" ? `` : "scale-y-[-1]"}
-            />
-          )}
-        </button>
-        <button
-          disabled={disableSort}
-          onClick={() => handleSort("lastUpdated")}
-          className={`flex justify-center items-center gap-1 text-xs md:text-sm  
+          >
+            createdAt
+            {(sort === "createdAt" || sort === "-createdAt") && (
+              <img
+                src="/icons/sortArrowLogo.png"
+                alt="sort arrow logo"
+                width={10}
+                height={10}
+                className={sort[0] === "-" ? `` : "scale-y-[-1]"}
+              />
+            )}
+          </button>
+          <button
+            disabled={disableSort}
+            onClick={() => handleSort("lastUpdated")}
+            className={`flex justify-center items-center gap-1 text-xs md:text-sm  
             p-2 rounded-lg hover:cursor-pointer
         ${
           sort === "lastUpdated" || sort === "-lastUpdated"
@@ -155,18 +156,19 @@ const TaskSortButtons = ({
             : " hover:bg-purple-100"
         }
         `}
-        >
-          lastUpdated
-          {(sort === "lastUpdated" || sort === "-lastUpdated") && (
-            <img
-              src="/icons/sortArrowLogo.png"
-              alt="sort arrow logo"
-              width={10}
-              height={10}
-              className={sort[0] === "-" ? `` : "scale-y-[-1]"}
-            />
-          )}
-        </button>
+          >
+            lastUpdated
+            {(sort === "lastUpdated" || sort === "-lastUpdated") && (
+              <img
+                src="/icons/sortArrowLogo.png"
+                alt="sort arrow logo"
+                width={10}
+                height={10}
+                className={sort[0] === "-" ? `` : "scale-y-[-1]"}
+              />
+            )}
+          </button>
+        </div>
       </div>
     )
   );
