@@ -6,14 +6,19 @@ import AddTaskButton from "@/components/addTaskButton";
 import TaskComponent from "@/components/taskComponent";
 import { useSearchParams } from "next/navigation";
 import TasksSideMenu from "@/components/taskSideMenu";
-import TaskPagesButton from "@/components/TaskPagesButtons";
-import { getTasks } from "@/APIs/Task";
+import TaskPagesButton from "@/components/TaskPagesnav";
+import { getTasks } from "@/APIs/Task/task";
+import TaskSortButtons from "@/components/taskSortButtons";
+import LoadingTasks from "@/components/LoadingTasks";
 
 const TasksPage = () => {
   const [loaded, setLoaded] = useState(false);
   const [sideMenuBool, setSideMenuBool] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [taskDetails, setTaskDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [searchString, setSearchString] = useState("");
+  const [statusFilter,setStatusFilter]=useState("");
   const searchParams = useSearchParams();
   useEffect(() => {
     onLoadFunction();
@@ -27,11 +32,16 @@ const TasksPage = () => {
     } else {
       pagenumebr = Number(pagenumebrStr);
     }
-    getTasks(pagenumebr).then((res) => {
-      setTasks(res.tasks);
+    const sortOnLoad = searchParams.get("sort") || "-lastUpdated";
+    const search=searchParams.get("search")||"";
+    const status = searchParams.get("status") || "";
+    getTasks(pagenumebr, sortOnLoad, search, status).then((res) => {
       if (res.success) {
+        setTasks(res.tasks);
         setTaskDetails(res);
       }
+      setStatusFilter(status);
+      setLoading(false);
     });
     setLoaded(true);
   };
@@ -45,11 +55,24 @@ const TasksPage = () => {
           setSideMenuBool={setSideMenuBool}
         />
         <div className="flex flex-col w-full">
-          <div className="flex-1 w-full lg:p-16 md:p-12 sm:p-8 p-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-items-center gap-5">
-            {tasks.map((item, index) => (
-              <TaskComponent item={item} key={index} />
-            ))}
-          </div>
+          <TaskSortButtons
+            searchString={searchString}
+            setSearchString={setSearchString}
+            setLoading={setLoading}
+            setTasks={setTasks}
+            setTaskDetails={setTaskDetails}
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+          />
+          {loading ? (
+            <LoadingTasks />
+          ) : (
+            <div className="flex-1 w-full lg:p-16 md:p-12 sm:p-8 p-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-items-center gap-5">
+              {tasks && (tasks.map((item, index) => (
+                <TaskComponent item={item} key={index} />
+              )))} 
+            </div>
+          )}
 
           <div className="w-full flex justify-center p-4">
             <TaskPagesButton taskDetails={taskDetails} />

@@ -68,6 +68,8 @@ const SortEntriesOptions = ({
           searchString={searchString}
           handleSearchChange={handleSearchChange}
           setSearchString={setSearchString}
+          focusBorderCss={'focus:ring-blue-500'}
+          placeholderString={"🔍 Search entries..."}
         />
         <div className="flex gap-3">
           <button
@@ -126,4 +128,5 @@ const SortEntriesOptions = ({
     )
   );
 };
+
 export default SortEntriesOptions;

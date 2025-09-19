@@ -12,6 +12,22 @@ const TaskPagesButton = ({ taskDetails }: any) => {
   useEffect(() => {
     setLoaded(true);
   }, []);
+  const urlForSearchAndSort = (): string => {
+    let urlEnd: string =
+      taskDetails.next_page !== null
+        ? taskDetails.next_page
+        : taskDetails.prev_page;
+    if (urlEnd === null) {
+      return "";
+    }
+    urlEnd = urlEnd.split("?")[1];
+    let urlEndTemp = urlEnd.split("&");
+    urlEnd =
+      urlEndTemp.length === 3
+        ? urlEndTemp[1] + "&" + urlEndTemp[2]
+        : urlEndTemp[0] + "&" + urlEndTemp[1];
+    return urlEnd;
+  };
   return (
     loaded &&
     taskDetails &&
@@ -36,7 +52,7 @@ const TaskPagesButton = ({ taskDetails }: any) => {
               if (taskDetails.current_page !== i + 1) {
                 window.location.href = `${url}?page=${
                   i + 1
-                }`;
+                }&${urlForSearchAndSort()}`;
                 // console.log(`${url}?page=${i + 1}&${urlForSearchAndSort()}`);
               }
             }}
