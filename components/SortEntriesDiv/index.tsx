@@ -17,8 +17,7 @@ const SortEntriesOptions = ({
   const searchParams = useSearchParams();
   useEffect(() => {
     setLoaded(true);
-    setSort(searchParams.get("sort")||"-lastUpdated");
-    
+    setSort(searchParams.get("sort") || "-lastUpdated");
   }, []);
   const handleSort = (field: "lastUpdated" | "createdAt") => {
     let currentSort = "";
@@ -36,7 +35,7 @@ const SortEntriesOptions = ({
     setLoading(true);
     const pageStr = searchParams.get("page");
     const pageNumber = pageStr ? Number(pageStr) : 1;
-    getAllEntries(pageNumber, currentSort,searchString).then((res) => {
+    getAllEntries(pageNumber, currentSort, searchString).then((res) => {
       if (res.entries) {
         setEntries(res.entries);
       }
@@ -59,22 +58,24 @@ const SortEntriesOptions = ({
         setEntriesDetails(res);
         setDisableSort(false);
         setLoading(false);
-
       });
-    } 
+    }
   };
   return (
     loaded && (
-      <div className="absolute z-10 right-40 top-20 flex gap-3 items-center justify-center">
+      <div className="md:absolute md:z-10 md:right-40 md:top-20 max-md:mt-10 max-[400px]:mb-5 max-sm:px-2 flex gap-3 items-center justify-center max-[400px]:flex-col">
         <SearchEntries
           searchString={searchString}
           handleSearchChange={handleSearchChange}
           setSearchString={setSearchString}
+          focusBorderCss={'focus:ring-blue-500'}
+          placeholderString={"🔍 Search entries..."}
         />
-        <button
-          disabled={disableSort}
-          onClick={() => handleSort("lastUpdated")}
-          className={`
+        <div className="flex gap-3">
+          <button
+            disabled={disableSort}
+            onClick={() => handleSort("lastUpdated")}
+            className={`
             flex justify-center items-center gap-2
             text-xs md:text-sm 
             p-2
@@ -85,45 +86,47 @@ const SortEntriesOptions = ({
             }
             hover:cursor-pointer
             rounded-lg
-        `}
-        >
-          LastUpdated
-          {(sort === "lastUpdated" || sort === "-lastUpdated") && (
-            <img
-              src="/icons/sortArrowLogo.png"
-              alt="sort arrow logo"
-              width={10}
-              height={10}
-              className={sort[0] === "-" ? `` : "scale-y-[-1]"}
-            />
-          )}
-        </button>
-        <button
-          disabled={disableSort}
-          onClick={() => handleSort("createdAt")}
-          className={`
+            `}
+          >
+            LastUpdated
+            {(sort === "lastUpdated" || sort === "-lastUpdated") && (
+              <img
+                src="/icons/sortArrowLogo.png"
+                alt="sort arrow logo"
+                width={10}
+                height={10}
+                className={sort[0] === "-" ? `` : "scale-y-[-1]"}
+              />
+            )}
+          </button>
+          <button
+            disabled={disableSort}
+            onClick={() => handleSort("createdAt")}
+            className={`
             flex justify-center items-center gap-2 text-xs md:text-sm 
-             ${
-               sort === "createdAt" || sort === "-createdAt"
-                 ? "bg-blue-800 hover:bg-blue-700 text-white"
-                 : "text-blue-800 hover:bg-blue-100"
-             }
-            rounded-lg hover:cursor-pointer p-2
-        `}
-        >
-          CreatedAt
-          {(sort === "createdAt" || sort === "-createdAt") && (
-            <img
-              src="/icons/sortArrowLogo.png"
-              alt="sort arrow logo"
-              width={10}
-              height={10}
-              className={sort[0] === "-" ? `` : "scale-y-[-1]"}
-            />
-          )}
-        </button>
+            ${
+              sort === "createdAt" || sort === "-createdAt"
+                ? "bg-blue-800 hover:bg-blue-700 text-white"
+                : "text-blue-800 hover:bg-blue-100"
+            }
+              rounded-lg hover:cursor-pointer p-2
+              `}
+          >
+            CreatedAt
+            {(sort === "createdAt" || sort === "-createdAt") && (
+              <img
+                src="/icons/sortArrowLogo.png"
+                alt="sort arrow logo"
+                width={10}
+                height={10}
+                className={sort[0] === "-" ? `` : "scale-y-[-1]"}
+              />
+            )}
+          </button>
+        </div>
       </div>
     )
   );
 };
+
 export default SortEntriesOptions;

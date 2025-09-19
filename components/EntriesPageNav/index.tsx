@@ -29,6 +29,8 @@ const PagesNavEntries = ({ entriesDetails }: any) => {
         : urlEndTemp[0] + "&" + urlEndTemp[1];
     return urlEnd;
   };
+
+  
   return (
     loaded &&
     entriesDetails &&
@@ -37,7 +39,7 @@ const PagesNavEntries = ({ entriesDetails }: any) => {
         {entriesDetails?.prev_page && (
           <button
             onClick={() => {
-              alert(`prev: ${url}?${entriesDetails.prev_page.split("?")[1]}`);
+              // alert(`prev: ${url}?${entriesDetails.prev_page.split("?")[1]}`);
               window.location.href = `${url}?${
                 entriesDetails.prev_page.split("?")[1]
               }`;
@@ -55,7 +57,7 @@ const PagesNavEntries = ({ entriesDetails }: any) => {
                 window.location.href = `${url}?page=${
                   i + 1
                 }&${urlForSearchAndSort()}`;
-                console.log(`${url}?page=${i + 1}&${urlForSearchAndSort()}`);
+                // console.log(`${url}?page=${i + 1}&${urlForSearchAndSort()}`);
               }
             }}
             className={`hover:cursor-pointer rounded-[50%] ${

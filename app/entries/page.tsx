@@ -6,9 +6,8 @@ import EntryCard from "@/components/EntryCard";
 import SideBarMenu from "@/components/SideBarMenu";
 import AddEntryButton from "@/components/addEntryButton";
 import SortEntriesOptions from "@/components/SortEntriesDiv";
-import PagesNavEntries from "@/components/PageNav";
+import PagesNavEntries from "@/components/EntriesPageNav";
 import { getAllEntries } from "@/APIs/Entry/entry";
-import { readSortEntriesInLocalStore } from "@/utils/localStore";
 import LoadingEntries from "@/components/loadingEntries";
 
 export default function Home() {
@@ -24,17 +23,18 @@ export default function Home() {
   }, []);
 
   const onLoadFunction = async () => {
-    const storedSort = await readSortEntriesInLocalStore();
     let pagenumebr;
     const pagenumebrStr = searchParams.get("page");
-    const searchString=searchParams.get("search")||"";
+    const searchString = searchParams.get("search") || "";
+    const sortOnLoad = searchParams.get("sort") || "-lastUpdated";
     if (pagenumebrStr === null) {
       pagenumebr = 1;
     } else {
       pagenumebr = Number(pagenumebrStr);
     }
     setLoading(true);
-    getAllEntries(pagenumebr, storedSort, searchString).then((res) => {
+
+    getAllEntries(pagenumebr, sortOnLoad, searchString).then((res) => {
       if (res.entries) {
         setEntries(res.entries);
       }
@@ -54,9 +54,9 @@ export default function Home() {
           setEntriesDetails={setEntriesDetails}
           setLoading={setLoading}
         />
-        <div className="mt-[100px] mb-[100px] max-md:mb-[200px] z-1 default flex flex-col h-full w-full items-center justify-center xl:p-20 lg:p-16 md:p-12 sm:p-8">
+        <div className="md:mt-[100px] mb-[100px] max-md:mb-[200px] z-1 default flex flex-col h-full w-full items-center justify-center xl:p-20 lg:p-16 md:p-12 sm:p-8">
           {loading ? (
-            <LoadingEntries/>
+            <LoadingEntries />
           ) : (
             <>
               <div className="mb-[100px] grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-8 md:place-items-center">
