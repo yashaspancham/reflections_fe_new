@@ -1,7 +1,12 @@
 import Image from "next/image";
 import { getColorForTask } from "@/utils/getColorForTaskCard";
 
-const TaskComponent = ({ item }: any) => {
+const TaskComponent = ({
+  item,
+  setSelectedTask,
+  setEntryID,
+  handleConfirmDeletePopUp,
+}: any) => {
   return (
     <div
       className={`p-4 ${getColorForTask(
@@ -22,14 +27,32 @@ const TaskComponent = ({ item }: any) => {
         finsish by: {new Date(item.dueDate).toLocaleDateString()}
       </p>
       <div className="flex gap-1 self-end mt-auto">
-        {item.status !== "completed" && (<button className="hover:cursor-pointer hover:bg-gray-200 text-white w-fit p-1.5 rounded-lg">
+        <button
+          onClick={() => setSelectedTask(item)}
+          className="hover:cursor-pointer hover:bg-gray-200 text-white w-fit p-1.5 rounded-lg"
+        >
           <Image
             src={"/icons/updateTask.png"}
             alt="edit Icon"
             width={20}
             height={20}
           />
-        </button>)}
+        </button>
+        <button
+          onClick={() => {
+            setEntryID(item.id);
+            handleConfirmDeletePopUp();
+            console.log("delete item.id: ", item.id);
+          }}
+          className="hover:cursor-pointer hover:bg-gray-200 text-white w-fit p-1.5 rounded-lg"
+        >
+          <Image
+            src={"/icons/deleteEntryLogo.png"}
+            alt="delete Icon"
+            width={20}
+            height={20}
+          />
+        </button>
         {/* {item.status !== "completed" && (
           <button className="hover:cursor-pointer hover:bg-green-100 text-white w-fit p-1.5 rounded-lg">
             <Image

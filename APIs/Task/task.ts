@@ -30,3 +30,32 @@ export const addTask = async (taskData:any) => {
     return false;
   }
 };
+
+export const updateTask = async (taskId: number, taskData: any) => {
+  try {
+    const response = await axios.put(`${apiBase}update_task/${taskId}/`, taskData);
+    toasting("Task updated successfully", "success");
+    return response.data;
+  } catch (error: any) {
+    console.error("Error updating task:", error);
+    toasting("Error updating task", "error");
+    return null;
+  }
+};
+
+
+export const deleteTask = async (id: number,task:string) => {
+  if(task!=="delete task"){
+    toasting("Please enter the correct confirmation string", "error");
+    return;
+  }
+  try {
+    await axios.delete(`${apiBase}delete_task/${id}/`);
+    toasting("Task deleted successfully", "success");
+    return true;
+  } catch (error: any) {
+    console.error("Error deleting task:", error);
+    toasting("Error deleting task", "error");
+    return false;
+  }
+};
