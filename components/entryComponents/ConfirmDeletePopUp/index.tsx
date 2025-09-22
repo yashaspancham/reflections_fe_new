@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { deleteEntry } from "@/APIs/Entry/entry";
+
 
 const ConfirmDeletePopUp = ({
   confirmDeletePopUp,
   setConfirmDeletePopUp,
   entryID,
+  handleDeleteEntry,
+  delete_type
 }: any) => {
   const [text, setText] = useState("");
   const router=useRouter();
@@ -17,13 +19,6 @@ const ConfirmDeletePopUp = ({
     document.body.style.overflow = "";
   };
 
-  const handleDeleteEntry = () => {
-    deleteEntry(entryID,text).then((res) => {
-      if (res) {
-        router.push("/entries");
-      }
-    });
-  };
 
   useEffect(() => {
     if (confirmDeletePopUp) {
@@ -48,11 +43,11 @@ const ConfirmDeletePopUp = ({
         onClick={(e) => e.stopPropagation()}
         className="p-5 h-[200px] w-[300px] bg-gray-200 rounded-lg flex flex-col gap-3"
       >
-        <p>This is a permanent action. Confirm by typing "delete entry"</p>
+        <p>This is a permanent action. Confirm by typing "delete {delete_type}"</p>
 
         <input
           className="bg-white p-1 border rounded"
-          placeholder="Confirm delete..."
+          placeholder={`Confirm ${delete_type}...`}
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -60,7 +55,7 @@ const ConfirmDeletePopUp = ({
         <div className="mt-5 flex gap-2 flex-row-reverse">
           <button
             className="p-2 rounded-lg text-white bg-red-700 hover:cursor-pointer hover:bg-red-800"
-            onClick={()=>handleDeleteEntry()}
+            onClick={()=>handleDeleteEntry(entryID,text)}
           >
             Delete
           </button>

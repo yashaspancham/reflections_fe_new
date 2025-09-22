@@ -25,6 +25,7 @@ import { updateEntry, savingEntry, getEntryById } from "@/APIs/Entry/entry";
 import TasksSideMenu from "@/components/taskSideMenu";
 import ConfirmDeletePopUp from "@/components/entryComponents/ConfirmDeletePopUp";
 import { useRouter } from "next/navigation";
+import { deleteEntry } from "@/APIs/Entry/entry";
 
 export default function EntryPage() {
   const [_, setEditorState] = useState({});
@@ -34,9 +35,9 @@ export default function EntryPage() {
   const [disableSaveButtom, setDisableSaveButtom] = useState<boolean>(false);
   const [sideMenuBool, setSideMenuBool] = useState(false);
   const [entryID, setEntryID] = useState<Number | null>(null);
-  const [confirmDeletePopUp,setConfirmDeletePopUp]=useState(false);
+  const [confirmDeletePopUp, setConfirmDeletePopUp] = useState(false);
   const searchParams = useSearchParams();
-  const router=useRouter();
+  const router = useRouter();
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -127,10 +128,19 @@ export default function EntryPage() {
     }
   };
 
-  const handleConfirmDeletePopUp=()=>{
+  const handleConfirmDeletePopUp = () => {
     setConfirmDeletePopUp(true);
-    document.body.style.overflow="hidden"
-  }
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleDeleteEntry = (entryID: number, text: string) => {
+    deleteEntry(entryID, text).then((res) => {
+      if (res) {
+        router.push("/entries");
+      }
+    });
+  };
+
   return (
     <div className="sm:p-10 p-5">
       <EntryTopBar
@@ -157,9 +167,11 @@ export default function EntryPage() {
         setSideMenuBool={setSideMenuBool}
       />
       <ConfirmDeletePopUp
-      confirmDeletePopUp={confirmDeletePopUp} 
-      setConfirmDeletePopUp={setConfirmDeletePopUp}
-      entryID={entryID}
+        confirmDeletePopUp={confirmDeletePopUp}
+        setConfirmDeletePopUp={setConfirmDeletePopUp}
+        entryID={entryID}
+        handleDeleteEntry={handleDeleteEntry}
+        delete_type={"entry"}
       />
     </div>
   );

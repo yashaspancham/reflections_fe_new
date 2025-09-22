@@ -98,7 +98,7 @@ const TaskSortButtons = ({
           setStatusFilter={setStatusFilter}
           handleStatusFilter={handleStatusFilter}
         />
-        <div className="flex">
+        <div className="flex gap-2">
           <button
             disabled={disableSort}
             onClick={() => handleSort("dueDate")}
