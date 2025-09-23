@@ -13,6 +13,7 @@ const AuthPagelayout = ({ children }: { children: React.ReactNode }) => {
                 alt="Image for authPage"
                 width={600}
                 height={600}
+                className="rounded-lg"
               />
             </div>
           </div>

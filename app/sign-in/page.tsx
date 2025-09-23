@@ -5,6 +5,7 @@ import AuthPagelayout from "@/components/AuthPageBorder";
 import { useRouter } from "next/navigation";
 import { validate } from "email-validator";
 import Link from "next/link";
+import { signin } from "@/APIs/auth/auth";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -18,14 +19,15 @@ const SignInPage = () => {
     if (password === "") {
       return;
     }
-
-    if (password === " " && email === "a@b.com") {
-      router.push("/entries");
-    }
+    signin(email,password).then(res=>{
+      if(res){
+        // router.push("/entries");
+      }
+    })
   };
   return (
     <AuthPagelayout>
-      <div className="[400px] h-[250px] flex flex-col gap-2">
+      <div className="sm:min-w-[400px] sm:min-h-[250px] flex flex-col gap-2">
         <div className="text-xl">Enter Email</div>
         <input
           type="email"

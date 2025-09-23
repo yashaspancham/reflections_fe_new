@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import AuthPagelayout from "@/components/AuthPageBorder";
 import Link from "next/link";
 import { validate } from "email-validator";
-
+import { toasting } from "@/utils/toast";
+import { signup } from "@/APIs/auth/auth";
+import { useRouter } from "next/navigation";
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const router=useRouter();
   function isGoodPassword(password: string): boolean {
-    // Minimum 8 chars, at least one uppercase, lowercase, digit, and special character
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
@@ -18,17 +20,22 @@ const SignUpPage = () => {
 
   const handleSignUp = () => {
     if (!validate(email)) {
-      alert("Please enter a valid email address.");
+      toasting("Please enter a valid email address.","error");
       return;
     }
     if (!isGoodPassword(password)) {
-      alert("Password does not meet the criteria.");
+      toasting("Password does not meet the criteria.","error");
       return;
     }
     if (password !== confirmPassword) {
-      alert("Passwords do not match.");
+      toasting("Passwords do not match.","error");
       return;
     }
+    signup(email,password).then((res)=>{
+      if(res){
+        router.push("/sign-in");
+      }
+    })
   };
   return (
     <AuthPagelayout>
