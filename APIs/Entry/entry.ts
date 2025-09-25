@@ -1,5 +1,4 @@
-import axios from "axios";
-import api from "@/APIs/setUp/setup"
+import {api} from "@/APIs/setUp/setup"
 import { toastControl, toasting } from "@/utils/toast";
 
 const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE;
@@ -35,6 +34,7 @@ export const updateEntry = async (diff: string, entryID: Number | null) => {
 
 
 export const getAllEntries = async (page: number = 1,sort:string,search:string="") => {
+
     try {
         const response = await api.get(`${apiBaseURL}journal/getAllEntries/`, {
             params: { page, sort,search },

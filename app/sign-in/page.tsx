@@ -19,11 +19,11 @@ const SignInPage = () => {
     if (password === "") {
       return;
     }
-    signin(email,password).then(res=>{
-      if(res){
-        // router.push("/entries");
+    signin(email, password).then((res) => {
+      if (res!==null) {
+        router.push("/entries");
       }
-    })
+    });
   };
   return (
     <AuthPagelayout>
@@ -52,7 +52,9 @@ const SignInPage = () => {
         </button>
         <p>
           New here? register{" "}
-          <Link href="/sign-up" className="underline text-blue-500">here</Link>
+          <Link href="/sign-up" className="underline text-blue-500">
+            here
+          </Link>
         </p>
       </div>
     </AuthPagelayout>

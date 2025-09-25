@@ -44,8 +44,8 @@ export const getAllImages = async () => {
         const response = await axios.get(`${apiBaseURL}all_images/`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching images:", error);
-        return [];
+        toasting(`Error fetching images: ${error}`, "error");
+        return null;
     }
 };
 

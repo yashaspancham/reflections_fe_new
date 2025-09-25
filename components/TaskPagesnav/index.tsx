@@ -48,27 +48,30 @@ const TaskPagesButton = ({ taskDetails }: any) => {
             Prev
           </button>
         )}
-
-        {[...Array(taskDetails.total_pages)].map((_, i) => (
-          <button
-            onClick={() => {
-              if (taskDetails.current_page !== i + 1) {
-                window.location.href = `${url}?page=${
-                  i + 1
-                }&${urlForSearchAndSort()}`;
-                // console.log(`${url}?page=${i + 1}&${urlForSearchAndSort()}`);
-              }
-            }}
-            className={`hover:cursor-pointer rounded-[50%] ${
-              taskDetails.current_page === i + 1
-                ? "text-white hover:bg-purple-800 bg-purple-900 p-1.5"
-                : "p-2 text-purple-900 hover:bg-gray-100"
-            }`}
-            key={i}
-          >
-            {i + 1}
-          </button>
-        ))}
+        {taskDetails.total_pages !== 1 && (
+          <>
+            {[...Array(taskDetails.total_pages)].map((_, i) => (
+              <button
+                onClick={() => {
+                  if (taskDetails.current_page !== i + 1) {
+                    window.location.href = `${url}?page=${
+                      i + 1
+                    }&${urlForSearchAndSort()}`;
+                    // console.log(`${url}?page=${i + 1}&${urlForSearchAndSort()}`);
+                  }
+                }}
+                className={`hover:cursor-pointer rounded-[50%] ${
+                  taskDetails.current_page === i + 1
+                    ? "text-white hover:bg-purple-800 bg-purple-900 p-1.5"
+                    : "p-2 text-purple-900 hover:bg-gray-100"
+                }`}
+                key={i}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </>
+        )}
         {taskDetails.next_page && (
           <button
             onClick={() => {

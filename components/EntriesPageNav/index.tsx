@@ -30,7 +30,6 @@ const PagesNavEntries = ({ entriesDetails }: any) => {
     return urlEnd;
   };
 
-  
   return (
     loaded &&
     entriesDetails &&
@@ -49,27 +48,31 @@ const PagesNavEntries = ({ entriesDetails }: any) => {
             Prev
           </button>
         )}
-
-        {[...Array(entriesDetails.total_pages)].map((_, i) => (
-          <button
-            onClick={() => {
-              if (entriesDetails.current_page !== i + 1) {
-                window.location.href = `${url}?page=${
-                  i + 1
-                }&${urlForSearchAndSort()}`;
-                // console.log(`${url}?page=${i + 1}&${urlForSearchAndSort()}`);
-              }
-            }}
-            className={`hover:cursor-pointer rounded-[50%] ${
-              entriesDetails.current_page === i + 1
-                ? "text-white hover:bg-blue-800 bg-blue-900 p-1.5"
-                : "p-2 text-blue-900 hover:bg-gray-100"
-            }`}
-            key={i}
-          >
-            {i + 1}
-          </button>
-        ))}
+        {entriesDetails.total_pages !== 1 && (
+          <>
+            {" "}
+            {[...Array(entriesDetails.total_pages)].map((_, i) => (
+              <button
+                onClick={() => {
+                  if (entriesDetails.current_page !== i + 1) {
+                    window.location.href = `${url}?page=${
+                      i + 1
+                    }&${urlForSearchAndSort()}`;
+                    // console.log(`${url}?page=${i + 1}&${urlForSearchAndSort()}`);
+                  }
+                }}
+                className={`hover:cursor-pointer rounded-[50%] ${
+                  entriesDetails.current_page === i + 1
+                    ? "text-white hover:bg-blue-800 bg-blue-900 p-1.5"
+                    : "p-2 text-blue-900 hover:bg-gray-100"
+                }`}
+                key={i}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </>
+        )}
 
         {entriesDetails.next_page !== null && (
           <button

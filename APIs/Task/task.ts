@@ -1,11 +1,12 @@
 import { toasting } from "@/utils/toast";
 import axios from "axios";
+import { api } from "../setUp/setup";
 const apiBase = `${process.env.NEXT_PUBLIC_API_BASE}tasks/`;
 
 
 export const getTasks = async (pageNumber: number, sort: string, search: string, statusFilter:string) => {
     try {
-        const response = await axios.get(`${apiBase}get_tasks/`,
+        const response = await api.get(`${apiBase}get_tasks/`,
             { params: { page: pageNumber, sort: sort, search: search, status:statusFilter } });
         console.log("getTasks-response: ", response.data);
         return response.data;
@@ -20,7 +21,7 @@ export const getTasks = async (pageNumber: number, sort: string, search: string,
 export const addTask = async (taskData:any) => {
   console.log("taskData: ",taskData);
   try {
-    await axios.post(`${apiBase}add_task/`, taskData);
+    await api.post(`${apiBase}add_task/`, taskData);
     toasting("Task added successfully", "success");
     toasting("Reload to see the change", "info");
     return true;
@@ -33,7 +34,7 @@ export const addTask = async (taskData:any) => {
 
 export const updateTask = async (taskId: number, taskData: any) => {
   try {
-    const response = await axios.put(`${apiBase}update_task/${taskId}/`, taskData);
+    const response = await api.put(`${apiBase}update_task/${taskId}/`, taskData);
     toasting("Task updated successfully", "success");
     return response.data;
   } catch (error: any) {
@@ -50,7 +51,7 @@ export const deleteTask = async (id: number,task:string) => {
     return;
   }
   try {
-    await axios.delete(`${apiBase}delete_task/${id}/`);
+    await api.delete(`${apiBase}delete_task/${id}/`);
     toasting("Task deleted successfully", "success");
     return true;
   } catch (error: any) {
