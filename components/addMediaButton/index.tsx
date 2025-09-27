@@ -30,8 +30,8 @@ const AddMediaButton: React.FC<AddMediaButtonProps> = ({ setUrlList }) => {
     console.log("Uploaded file:", result);
     if (result !== undefined) {
       setUrlList((prev: any) => [...prev, result])
-      setDisableButton(false);
     }
+    setDisableButton(false);
   };
 
   return (

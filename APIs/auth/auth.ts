@@ -24,7 +24,6 @@ export const signin = async (email: string, password: string) => {
     console.log("signin-response: ", response.data);
     localStorage.setItem("access", response.data.tokens.access);
     localStorage.setItem("refresh", response.data.tokens.refresh);
-    localStorage.setItem("user_data",response.data.user_data)
     return response.data.tokens;
   } catch (err: any) {
     console.log(err.response?.data?.error || "Signin failed");

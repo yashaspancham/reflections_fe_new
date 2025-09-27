@@ -47,12 +47,15 @@ api.interceptors.response.use(
 
       return new Promise(async (resolve, reject) => {
         try {
-          const refresh = localStorage.getItem("refresh");
+          const refresh =localStorage.getItem("refresh");
           console.log("Calling refresh token endpoint");
           const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}users/refresh_access/`, { refresh });
           const newAccess = res.data.access;
-
+          const newRefresh=res.data.refresh;
           localStorage.setItem("access", newAccess);
+          if(newRefresh){
+            localStorage.setItem("refresh", newRefresh);
+          }
 
           api.defaults.headers.common["Authorization"] = `Bearer ${newAccess}`;
           originalRequest.headers["Authorization"] = `Bearer ${newAccess}`;
