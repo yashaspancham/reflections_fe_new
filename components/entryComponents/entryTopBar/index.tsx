@@ -33,8 +33,6 @@ const EntryTopBar = ({
       setEditorTick((t) => t + 1);
     };
 
-    // subscribe to editor updat
-    // es and selection changes so toolbar stays in sync
     editor.on("update", handle);
     editor.on("selectionUpdate", handle);
     editor.on("transaction", handle);
