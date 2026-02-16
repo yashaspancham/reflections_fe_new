@@ -10,8 +10,12 @@ import { signin } from "@/APIs/auth/auth";
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disableButton, setDisableButton]=useState<boolean>(false);
   const router = useRouter();
   const handleSignIn = () => {
+    if(disableButton){
+      return;
+    }
     if (!validate(email)) {
       alert("Please enter a valid email address.");
       return;
@@ -19,10 +23,12 @@ const SignInPage = () => {
     if (password === "") {
       return;
     }
+    setDisableButton(true);
     signin(email, password).then((res) => {
       if (res!==null) {
         router.push("/entries");
       }
+      setDisableButton(false);
     });
   };
   return (
@@ -46,7 +52,8 @@ const SignInPage = () => {
         />
         <button
           onClick={handleSignIn}
-          className="bg-blue-500 p-2 w-full rounded-lg text-md hover:bg-blue-600 hover:cursor-pointer text-white"
+          disabled={disableButton}
+          className={`${disableButton? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"}  p-2 w-full rounded-lg text-md  hover:cursor-pointer text-white`}
         >
           Enter
         </button>

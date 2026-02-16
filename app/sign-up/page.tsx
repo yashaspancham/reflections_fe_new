@@ -9,9 +9,10 @@ import { useRouter } from "next/navigation";
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disableButton, setDisableButton] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const router=useRouter();
+  const router = useRouter();
   function isGoodPassword(password: string): boolean {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -19,23 +20,28 @@ const SignUpPage = () => {
   }
 
   const handleSignUp = () => {
+    if (disableButton) {
+      return;
+    }
     if (!validate(email)) {
-      toasting("Please enter a valid email address.","error");
+      toasting("Please enter a valid email address.", "error");
       return;
     }
     if (!isGoodPassword(password)) {
-      toasting("Password does not meet the criteria.","error");
+      toasting("Password does not meet the criteria.", "error");
       return;
     }
     if (password !== confirmPassword) {
-      toasting("Passwords do not match.","error");
+      toasting("Passwords do not match.", "error");
       return;
     }
-    signup(email,password).then((res)=>{
-      if(res){
+    setDisableButton(true);
+    signup(email, password).then((res) => {
+      if (res) {
         router.push("/sign-in");
       }
-    })
+      setDisableButton(false);
+    });
   };
   return (
     <AuthPagelayout>
@@ -74,7 +80,7 @@ const SignUpPage = () => {
         />
         <button
           onClick={handleSignUp}
-          className="bg-blue-500 p-2 w-full rounded-lg text-md hover:bg-blue-600 hover:cursor-pointer text-white"
+          className={`${disableButton? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"} p-2 w-full rounded-lg text-md hover:cursor-pointer text-white`}
         >
           Enter
         </button>
