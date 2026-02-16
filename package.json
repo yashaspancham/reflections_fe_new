@@ -33,7 +33,7 @@
     "crypto-js": "^4.2.0",
     "diff-match-patch": "^1.0.5",
     "email-validator": "^2.0.4",
-    "next": "^15.5.4",
+    "next": "15.5.9",
     "react": "19.1.0",
     "react-datepicker": "^8.7.0",
     "react-dom": "19.1.0",
